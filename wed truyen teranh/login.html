@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dang nhap / Dang ky - Library Comic</title>
+
+    <!-- CSS chung toàn web -->
+    <link rel="stylesheet" href="./css/style.css">
+    <!-- CSS riêng trang đăng nhập/đăng ký -->
+    <link rel="stylesheet" href="./css/auth.css">
+</head>
+<body>
+
+<!-- ========================================================
+     HEADER — thanh điều hướng trên cùng
+     Giữ đơn giản: chỉ logo + nút quay về trang chủ
+======================================================== -->
+<header>
+    <a href="./index.html" class="logo">
+        <span class="logo-text">Library<span class="logo-accent">Comic</span></span>
+    </a>
+    <div class="account" style="margin-left:auto;">
+        <a href="./index.html" class="btn-register">Quay ve trang chu</a>
+    </div>
+</header>
+
+
+<!-- ========================================================
+     NỘI DUNG CHÍNH — form đăng nhập / đăng ký
+======================================================== -->
+<div class="auth-page">
+    <div class="auth-container">
+
+        <!-- TAB ĐIỀU HƯỚNG: chuyển qua lại giữa 2 form -->
+        <div class="auth-tabs">
+            <button class="auth-tab" id="tabLogin"    onclick="switchTab('login')">   Dang nhap</button>
+            <button class="auth-tab" id="tabRegister" onclick="switchTab('register')">Dang ky</button>
+        </div>
+
+        <!-- ------------------------------------------------
+             FORM ĐĂNG NHẬP
+             Hiển thị mặc định khi vào trang
+        ------------------------------------------------ -->
+        <div class="auth-form" id="formLogin">
+            <h2>Chao mung tro lai</h2>
+            <p class="subtitle">Dang nhap de tiep tuc doc truyen</p>
+
+            <!-- Vùng hiển thị thông báo lỗi / thành công -->
+            <div id="loginMessage" class="auth-message"></div>
+
+            <div class="input-group">
+                <label>Ten tai khoan</label>
+                <input id="loginUser" type="text"
+                       placeholder="Nhap ten tai khoan..."
+                       autocomplete="username">
+            </div>
+
+            <div class="input-group">
+                <label>Mat khau</label>
+                <input id="loginPass" type="password"
+                       placeholder="Nhap mat khau..."
+                       autocomplete="current-password">
+            </div>
+
+            <button class="submit-btn" onclick="login()">Dang nhap</button>
+
+            <!-- Link chuyển sang tab đăng ký -->
+            <div class="auth-switch">
+                Chua co tai khoan? <a onclick="switchTab('register')">Dang ky ngay</a>
+            </div>
+        </div>
+
+
+        <!-- ------------------------------------------------
+             FORM ĐĂNG KÝ
+             Ẩn mặc định, hiện khi nhấn tab hoặc ?tab=register
+        ------------------------------------------------ -->
+        <div class="auth-form" id="formRegister">
+            <h2>Tao tai khoan moi</h2>
+            <p class="subtitle">Mien phi, doc truyen khong gioi han</p>
+
+            <!-- Vùng hiển thị thông báo lỗi / thành công -->
+            <div id="registerMessage" class="auth-message"></div>
+
+            <div class="input-group">
+                <label>Ten tai khoan</label>
+                <input id="regUser" type="text"
+                       placeholder="Chon ten tai khoan..."
+                       autocomplete="username">
+            </div>
+
+            <div class="input-group">
+                <label>Mat khau</label>
+                <input id="regPass" type="password"
+                       placeholder="It nhat 6 ky tu..."
+                       autocomplete="new-password">
+            </div>
+
+            <button class="submit-btn" onclick="register()">Dang ky</button>
+
+            <!-- Link chuyển sang tab đăng nhập -->
+            <div class="auth-switch">
+                Da co tai khoan? <a onclick="switchTab('login')">Dang nhap</a>
+            </div>
+        </div>
+
+        <!-- Link quay về trang chủ ở đáy hộp -->
+        <a href="./index.html" class="back-home">Quay ve trang chu</a>
+
+    </div>
+</div>
+
+
+<!-- ========================================================
+     FOOTER
+======================================================== -->
+<footer>
+    <p>&#169; 2026 LibraryComic</p>
+</footer>
+
+
+<!-- ========================================================
+     JS: auth.js chứa toàn bộ logic đăng nhập / đăng ký
+     (switchTab, login, register, showMsg, initTab)
+======================================================== -->
+<script src="./js/auth.js"></script>
+
+</body>
+</html>

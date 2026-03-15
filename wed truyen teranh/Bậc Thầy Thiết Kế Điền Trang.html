@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Chi tiết truyện</title>
+
+<link rel="stylesheet" href="./css/style.css">
+
+</head>
+
+<body>
+
+<!-- ===== HEADER (giữ giống index) ===== -->
+
+<!-- ================= HEADER ================= -->
+<header>
+
+    <!-- Logo -->
+    <div class="logo">
+        library comic
+    </div>
+
+    <!-- Menu bên trái -->
+    <nav class="menu">
+
+        <a href="./index.html">Menu</a>
+        <a href="#">Theo dõi</a>
+        <a href="#">Lịch sử</a>
+
+        <!-- Dropdown thể loại -->
+<div class="dropdown">
+
+<a href="#" class="dropbtn">Thể loại</a>
+
+<div class="dropdown-content">
+
+<a href="#" data-filter="all">Tất cả</a>
+<a href="#" data-filter="action">Hành động</a>
+<a href="#" data-filter="adventure">Phiêu lưu</a>
+<a href="#" data-filter="isekai">Isekai</a>
+<a href="#" data-filter="romance">Romance</a>
+<a href="#" data-filter="comedy">Hài</a>
+
+</div>
+</div>
+
+</div>
+    </nav>
+
+    <!-- Thanh tìm kiếm -->
+<div class="search">
+<input type="text" id="searchInput" placeholder="Tìm truyện...">
+</div>
+    <!-- ===== NÚT BÓNG ĐÈN CHỈNH SÁNG ===== -->
+<div class="theme-toggle">
+
+<button id="lightBtn">💡</button>
+
+</div>
+
+    <!-- Đăng nhập -->
+    <div class="account">
+
+        <a href="#">Đăng ký</a>
+        <a href="#">Đăng nhập</a>
+
+    </div>
+
+</header>
+
+
+<!-- ===== NỘI DUNG TRUYỆN ===== -->
+
+<section class="manga-detail">
+
+<img src="./images/bttdt.jpg " class="detail-img">
+
+<div class="detail-info">
+
+<h1 class="detail-title">Bậc Thầy Thiết Kế Điền Trang</h1>
+
+<p><span>Tác giả:</span> Đang cập nhật</p>
+
+<p><span>Thể loại:</span> 
+<span class="tag">Comedy</span>
+<span class="tag">Drama</span>
+<span class="tag">Fantasy</span>
+<span class="tag">Webtoon</span>
+<span class="tag">isekai</span>
+
+</p>
+
+
+<p><span>Tình trạng:</span> Đang cập nhật</p>
+
+<p class="desc">
+cuộc sống hằng ngày của cậu học sinh
+</p>
+<button class="follow-btn"
+onclick="followManga('Bậc Thầy Thiết Kế Điền Trang','./images/bttdt.jpg','./Bậc Thầy Thiết Kế Điền Trang.html')">
+⭐ Theo dõi
+</button>
+
+</div>
+
+</section>
+<!-- ===== DANH SÁCH CHAPTER ===== -->
+
+<section class="chapter-list">
+
+<h2>Danh sách chương</h2>
+
+<div class="chapters">
+
+<a href="./chapter4botruyen1.html" class="chapter-item">
+<span class="chapter-name">Chapter 1:sự ngặp ngỡ</span>
+
+</a>
+
+<a href="./chapter4botruyen2.html" class="chapter-item">
+<span class="chapter-name">Chapter 2: alien đấu sumo</span>
+
+</a>
+
+</div>
+
+</section>
+<!-- ===== FOOTER ===== -->
+
+<footer>
+<p>© 2026 Anime Web</p>
+<script src="./js/script.js"></script>
+</footer>
+
+</body>
+</html>

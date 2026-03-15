@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 2: Dien trang dau - Bac Thay Thiet Ke Dien Trang - Library Comic</title>
+    <!-- CSS chung toan web -->
+    <link rel="stylesheet" href="./css/style.css">
+    <!-- CSS rieng trang doc truyen -->
+    <link rel="stylesheet" href="./css/reader.css">
+</head>
+<body class="reader-wrap">
+
+<header>
+    <a href="./index.html" class="logo">
+        <span class="logo-text">Library<span class="logo-accent">Comic</span></span>
+    </a>
+    <button class="hamburger" id="hamburgerBtn" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+    </button>
+    <nav class="menu" id="mainMenu">
+        <a href="./index.html">Trang chu</a>
+        <a href="./theodoi.html">Theo doi</a>
+        <a href="./lichsu.html">Lich su</a>
+        <div class="dropdown" id="genreDropdown">
+            <a href="#" class="dropbtn" id="dropbtnLink" onclick="toggleDropdown(event)">The loai</a>
+            <div class="dropdown-content" id="dropdownContent">
+                <a href="index.html?genre=all">Tat ca</a>
+                <a href="index.html?genre=action">Hanh dong</a>
+                <a href="index.html?genre=adventure">Phieu luu</a>
+                <a href="index.html?genre=isekai">Isekai</a>
+                <a href="index.html?genre=romance">Romance</a>
+                <a href="index.html?genre=comedy">Hai</a>
+            </div>
+        </div>
+        <div class="menu-auth-mobile" id="mobileAuthArea">
+            <a href="./login.html" class="btn-login-mobile">Dang nhap</a>
+            <a href="./login.html?tab=register" class="btn-register-mobile">Dang ky</a>
+        </div>
+    </nav>
+    <div class="search"><input type="text" id="searchInput" placeholder="Tim truyen..."></div>
+    <div class="theme-toggle"><button onclick="toggleTheme()">&#9728;</button></div>
+    <div class="account" id="menuAccount">
+        <a href="./login.html?tab=register" class="btn-register">Dang ky</a>
+        <a href="./login.html" class="btn-login">Dang nhap</a>
+    </div>
+</header>
+
+<!-- Breadcrumb: Trang chu > Ten truyen > Ten chuong -->
+<div class="breadcrumb">
+    <a href="./index.html">Trang chu</a>
+    <span class="sep">&rsaquo;</span>
+    <a href="./Bac_Thay_Thiet_Ke_Dien_Trang.html">Bac Thay Thiet Ke Dien Trang</a>
+    <span class="sep">&rsaquo;</span>
+    <span class="current">Chapter 2: Dien trang dau</span>
+</div>
+
+<!-- Thanh dieu khien sticky (bam theo khi cuon) -->
+<div class="reader-controls">
+    <div class="reader-title">
+        <span>Bac Thay Thiet Ke Dien Trang</span> &mdash; Chapter 2: Dien trang dau
+    </div>
+    <div class="reader-nav">
+        <!-- id prevLink/nextLink dung boi reader.js cho phim tat -->
+        <a href="./chapter4botruyen1.html" id="prevLink">
+            <button class="nav-btn" >&lsaquo; Truoc</button>
+        </a>
+        <!-- Nut chon chuong - toggleChapterDrop() trong reader.js -->
+        <div class="chapter-select-wrap">
+            <button class="chapter-select-btn" onclick="toggleChapterDrop(event)">
+                Chuong 2 / 2
+            </button>
+            <div class="chapter-dropdown" id="chapterDrop">
+                <a href="./chapter4botruyen1.html" class="">Chapter 1: The gioi moi</a>
+                <a href="./chapter4botruyen2.html" class="active">Chapter 2: Dien trang dau</a>
+            </div>
+        </div>
+        <a href="#" id="nextLink">
+            <button class="nav-btn" disabled>Sau &rsaquo;</button>
+        </a>
+    </div>
+</div>
+
+<!-- Anh truyen - duoc tai tu dong boi script.js dua vao data-* -->
+<div class="reader-images"
+    id="chapterImages"
+    data-manga="Bậc Thầy Thiết Kế Điền Trang"
+    data-chapter="chapter2"
+    data-pages="70"">
+</div>
+
+<!-- Thanh dieu khien duoi (sau khi doc xong) -->
+<div class="reader-bottom">
+    <a href="./chapter4botruyen1.html"><button class="nav-btn" >&lsaquo; Chuong truoc</button></a>
+    <a href="./Bac_Thay_Thiet_Ke_Dien_Trang.html"><button class="nav-btn">Danh sach chuong</button></a>
+    <a href="#"><button class="nav-btn" disabled>Chuong sau &rsaquo;</button></a>
+</div>
+
+<!-- Phan binh luan -->
+<div class="comment-section">
+    <h2 style="border-left:4px solid #ff4c4c;padding-left:12px;font-size:16px;margin-bottom:16px;">Binh luan</h2>
+    <div class="comment-input">
+        <input type="text" id="nameInput" placeholder="Ten cua ban">
+        <textarea id="commentInput" placeholder="Viet binh luan..."></textarea>
+        <button onclick="addComment()">Gui</button>
+    </div>
+    <div id="commentList"></div>
+</div>
+
+<footer><p>&#169; 2026 LibraryComic</p></footer>
+
+<!-- script.js: ham chung (menu, theme, tai anh chapter...) -->
+<script src="./js/script.js"></script>
+<!-- reader.js: dropdown chon chuong, phim tat arrow -->
+<script src="./js/reader.js"></script>
+</body>
+</html>

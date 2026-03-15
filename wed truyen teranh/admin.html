@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Library Comic</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/admin.css">
+</head>
+<body>
+
+<!-- ===== CỔNG BẢO MẬT ===== -->
+<div id="adminGate">
+    <div class="gate-box">
+        <h2>Admin Panel</h2>
+        <p>LibraryComic &mdash; Chi admin moi co quyen truy cap</p>
+        <input type="text" id="gateUser" placeholder="Ten dang nhap admin" autocomplete="off">
+        <input type="password" id="gatePass" placeholder="Mat khau admin" onkeydown="if(event.key==='Enter') checkAdminLogin()">
+        <button onclick="checkAdminLogin()">Dang nhap</button>
+        <div class="gate-error" id="gateError">Sai ten dang nhap hoac mat khau!</div>
+    </div>
+</div>
+
+<!-- ===== ADMIN PANEL ===== -->
+<div id="adminPanel">
+
+    <div class="admin-header">
+        <div>
+            <span class="logo-text">Library<span class="logo-accent">Comic</span></span>
+            <span class="admin-badge">ADMIN</span>
+        </div>
+        <div class="header-right">
+            <a href="./index.html" class="btn-view-site" target="_blank">Xem trang web</a>
+            <button class="btn-logout-admin" onclick="adminLogout()">Dang xuat</button>
+        </div>
+    </div>
+
+    <div class="admin-body">
+
+        <!-- Stats -->
+        <div class="stats-bar" id="statsBar">
+            <div class="stat-card">
+                <div class="stat-num" id="statTotal">0</div>
+                <div class="stat-label">Tong so truyen</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-num" id="statChapters">0</div>
+                <div class="stat-label">Tong so chuong</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-num" id="statOngoing">0</div>
+                <div class="stat-label">Dang tien hanh</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-num" id="statCompleted">0</div>
+                <div class="stat-label">Hoan thanh</div>
+            </div>
+        </div>
+
+        <!-- Form thêm/sửa -->
+        <div class="section-head">
+            <h2 id="formTitle">Them truyen moi</h2>
+        </div>
+
+        <div class="add-form">
+            <input type="hidden" id="editId">
+
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Ten truyen *</label>
+                    <input type="text" id="fTitle" placeholder="Vi du: Naruto">
+                </div>
+                <div class="form-group">
+                    <label>Tac gia</label>
+                    <input type="text" id="fAuthor" placeholder="Vi du: Masashi Kishimoto">
+                </div>
+                <div class="form-group">
+                    <label>Ten thu muc (data-manga) *</label>
+                    <input type="text" id="fFolder" placeholder="Vi du: naruto → tuc la anh o manga/naruto/chapter1/1.jpg">
+                </div>
+                <div class="form-group">
+                    <label>Duong dan anh bia *</label>
+                    <input type="text" id="fImg" placeholder="Vi du: ./images/naruto.jpg" oninput="previewImg(this.value)">
+                    <img id="imgPreview" class="img-preview" alt="Preview">
+                </div>
+                <div class="form-group">
+                    <label>Tinh trang</label>
+                    <select id="fStatus">
+                        <option value="ongoing">Dang cap nhat</option>
+                        <option value="completed">Hoan thanh</option>
+                    </select>
+                </div>
+                <div class="form-group full">
+                    <label>Mo ta</label>
+                    <textarea id="fDesc" placeholder="Mo ta ngan ve noi dung truyen..."></textarea>
+                </div>
+                <div class="form-group full">
+                    <label>The loai</label>
+                    <div class="genre-checks" id="genreChecks">
+                        <label class="genre-check" onclick="toggleGenre(this)"><input type="checkbox" value="action">Hanh dong</label>
+                        <label class="genre-check" onclick="toggleGenre(this)"><input type="checkbox" value="adventure">Phieu luu</label>
+                        <label class="genre-check" onclick="toggleGenre(this)"><input type="checkbox" value="isekai">Isekai</label>
+                        <label class="genre-check" onclick="toggleGenre(this)"><input type="checkbox" value="romance">Romance</label>
+                        <label class="genre-check" onclick="toggleGenre(this)"><input type="checkbox" value="comedy">Hai</label>
+                        <label class="genre-check" onclick="toggleGenre(this)"><input type="checkbox" value="fantasy">Fantasy</label>
+                        <label class="genre-check" onclick="toggleGenre(this)"><input type="checkbox" value="drama">Drama</label>
+                        <label class="genre-check" onclick="toggleGenre(this)"><input type="checkbox" value="supernatural">Supernatural</label>
+                        <label class="genre-check" onclick="toggleGenre(this)"><input type="checkbox" value="shounen">Shounen</label>
+                    </div>
+                </div>
+                <div class="form-group full">
+                    <label>Danh sach chuong <span style="color:#666; font-weight:normal; text-transform:none;">(Ten chuong + so trang anh)</span></label>
+                    <div class="chapters-builder" id="chaptersBuilder"></div>
+                    <button class="btn-add-chapter" onclick="addChapterRow()">+ Them chuong</button>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button class="btn-cancel" onclick="resetForm()">Huy</button>
+                <button class="btn-save" onclick="saveManga()">Luu truyen</button>
+            </div>
+        </div>
+
+        <!-- Danh sách truyện -->
+        <div class="section-head">
+            <h2>Danh sach truyen (<span id="mangaCount">0</span>)</h2>
+        </div>
+
+        <div class="manga-table">
+            <div class="table-head">
+                <div>Anh</div>
+                <div>Ten truyen</div>
+                <div>The loai</div>
+                <div>Tinh trang</div>
+                <div>Hanh dong</div>
+            </div>
+            <div id="mangaTableBody">
+                <div class="empty-table">Chua co truyen nao. Them truyen moi o phia tren!</div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+<script src="./js/admin.js"></script>
+</body>
+</html>`;
+}
+
+function editManga(id) {
+    const list = getMangaList();
+    const m = list.find(x => x.id === id);
+    if (!m) return;
+
+    document.getElementById("editId").value = m.id;
+    document.getElementById("fTitle").value = m.title;
+    document.getElementById("fAuthor").value = m.author;
+    document.getElementById("fFolder").value = m.folder;
+    document.getElementById("fImg").value = m.img;
+    document.getElementById("fDesc").value = m.desc || "";
+    document.getElementById("fStatus").value = m.status;
+    document.getElementById("formTitle").textContent = "Chinh sua truyen: " + m.title;
+    previewImg(m.img);
+
+    // Genres
+    document.querySelectorAll(".genre-check").forEach(l => {
+        const val = l.querySelector("input").value;
+        const checked = (m.genres || []).includes(val);
+        l.querySelector("input").checked = checked;
+        l.classList.toggle("checked", checked);
+    });
+
+    // Chapters
+    document.getElementById("chaptersBuilder").innerHTML = "";
+    chapterCount = 0;
+    (m.chapters || []).forEach(c => addChapterRow(c.title, c.pages || ""));
+    if (!m.chapters || m.chapters.length === 0) addChapterRow();
+
+    // Scroll to form
+    document.querySelector(".add-form").scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function deleteManga(id) {
+    if (!confirm("Ban co chac muon xoa truyen nay?")) return;
+    let list = getMangaList();
+    list = list.filter(m => m.id !== id);
+    saveMangaList(list);
+    renderStats();
+    renderTable();
+    showToast("Da xoa truyen.");
+}
+
+// ===== TOAST =====
+function showToast(msg, type = "success") {
+    const t = document.getElementById("toast");
+    t.textContent = msg;
+    t.className = "toast show" + (type === "error" ? " error" : "");
+    setTimeout(() => t.className = "toast", 2800);
+}
+
+// ===== TẢI FILE TRANG CHI TIẾT =====
+function downloadDetailPage(id) {
+    const list = getMangaList();
+    const m = list.find(x => x.id === id);
+    if (!m) return;
+
+    const html = `<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${m.title} - Library Comic</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/admin.css">
+</head>
+<body>
+<header>
+    <a href="./index.html" class="logo"><span class="logo-text">Library<span class="logo-accent">Comic</span></span></a>
+    <button class="hamburger" id="hamburgerBtn" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+    <nav class="menu" id="mainMenu">
+        <a href="./index.html">Trang chu</a>
+        <a href="./theodoi.html">Theo doi</a>
+        <a href="./lichsu.html">Lich su</a>
+        <div class="dropdown" id="genreDropdown">
+            <a href="#" class="dropbtn" id="dropbtnLink" onclick="toggleDropdown(event)">The loai</a>
+            <div class="dropdown-content" id="dropdownContent">
+                <a href="index.html?genre=all">Tat ca</a>
+                <a href="index.html?genre=action">Hanh dong</a>
+                <a href="index.html?genre=adventure">Phieu luu</a>
+                <a href="index.html?genre=isekai">Isekai</a>
+                <a href="index.html?genre=romance">Romance</a>
+                <a href="index.html?genre=comedy">Hai</a>
+            </div>
+        </div>
+        <div class="menu-auth-mobile" id="mobileAuthArea">
+            <a href="./login.html" class="btn-login-mobile">Dang nhap</a>
+            <a href="./login.html?tab=register" class="btn-register-mobile">Dang ky</a>
+        </div>
+    </nav>
+    <div class="search"><input type="text" id="searchInput" placeholder="Tim truyen..."></div>
+    <div class="theme-toggle"><button onclick="toggleTheme()">&#9728;</button></div>
+    <div class="account" id="menuAccount">
+        <a href="./login.html?tab=register" class="btn-register">Dang ky</a>
+        <a href="./login.html" class="btn-login">Dang nhap</a>
+    </div>
+</header>
+<main style="padding:24px;">
+    <section class="manga-detail">
+        <img src="${m.img}" class="detail-img" alt="${m.title}">
+        <div class="detail-info">
+            <h1 class="detail-title">${m.title}</h1>
+            <p><b>Tac gia:</b> ${m.author}</p>
+            <p><b>The loai:</b> ${(m.genres||[]).map(g => \`<span class="tag">\${g}</span>\`).join(" ")}</p>
+            <p><b>Tinh trang:</b> ${m.status === "completed" ? "Hoan thanh" : "Dang cap nhat"}</p>
+            <p><b>Mo ta:</b> ${m.desc||""}</p>
+            <button class="follow-btn" onclick="followManga('${m.title}','${m.img}','${m.detailLink}')">Theo doi</button>
+        </div>
+    </section>
+    <section class="chapter-list">
+        <h2>Danh sach chuong</h2>
+        <div class="chapters">
+            ${(m.chapters||[]).map((c,i) => `<a href="./${m.id}_chapter${i+1}.html" class="chapter-item"><span>${c.title}</span></a>`).join("\n            ")}
+        </div>
+    </section>
+</main>
+<footer><p>&#169; 2026 LibraryComic</p></footer>
+<script src="./js/script.js"><\/script>
+<script src="./js/admin.js"></script>
+</body>
+</html>`;
+
+    const fname = m.id + "_detail.html";
+    const blob = new Blob([html], { type: "text/html;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url; a.download = fname;
+    document.body.appendChild(a); a.click();
+    document.body.removeChild(a); URL.revokeObjectURL(url);
+    showToast("Da tai file: " + fname);
+}
+
+// ===== INIT =====
+if (sessionStorage.getItem("adminAuth") === "1") {
+    loadPanel();
+}
+</script>
+<script src="./js/admin.js"></script>
+</body>
+</html>
