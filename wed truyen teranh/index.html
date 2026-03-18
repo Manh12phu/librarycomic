@@ -4,13 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Library Comic</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
 
 <header>
     <a href="./index.html" class="logo">
-        <span class="logo-text">Library<span class="logo-accent">Comic</span></span>
+        <img src="./images/librarycomic-logo.svg" alt="LibraryComic" height="48" style="display:block;">
     </a>
 
     <!-- Nút hamburger hiện trên mobile -->
@@ -51,7 +53,13 @@
 
     <!-- Nút chuyển sáng/tối -->
     <div class="theme-toggle">
-        <button onclick="toggleTheme()">&#9728;</button>
+        <div class="toggle-track" onclick="toggleTheme()" title="Chuyển chế độ sáng/tối">
+            <div class="toggle-thumb">
+                <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3" stroke="white" stroke-width="2.5" stroke-linecap="round"/><line x1="12" y1="21" x2="12" y2="23" stroke="white" stroke-width="2.5" stroke-linecap="round"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke="white" stroke-width="2.5" stroke-linecap="round"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke="white" stroke-width="2.5" stroke-linecap="round"/><line x1="1" y1="12" x2="3" y2="12" stroke="white" stroke-width="2.5" stroke-linecap="round"/><line x1="21" y1="12" x2="23" y2="12" stroke="white" stroke-width="2.5" stroke-linecap="round"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="white" stroke-width="2.5" stroke-linecap="round"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="white" stroke-width="2.5" stroke-linecap="round"/></svg>
+            </div>
+        </div>
+        <span class="toggle-label" id="themeLabel">Tối</span>
     </div>
 
     <!-- Nút đăng nhập/đăng ký (desktop) -->
@@ -68,6 +76,59 @@
 
 <!-- Danh sách truyện - được render bởi index.js -->
 <main>
+    <!-- Video noi bat -->
+    <section class="featured-video">
+        <div class="video-section-header">
+            <span class="video-badge">&#9654; Video</span>
+            <h2 class="video-title">Video noi bat</h2>
+        </div>
+        <div class="video-card">
+            <div class="video-wrapper">
+                <iframe
+                    src="https://www.yout-ube.com/embed/bYCk2udVFvo?si=cxqByWjptvAlMF0v"
+                    title="YouTube video player"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ban do -->
+    <section class="map-section">
+        <div class="map-header">
+            <div class="map-pin-icon"></div>
+            <div class="map-header-text">
+                <div class="map-title">Vi tri cua chung toi</div>
+                <div class="map-subtitle">72 Binh Hung Hoa, Binh Tan, Ho Chi Minh</div>
+            </div>
+        </div>
+        <div class="map-card-new">
+            <div class="map-info-bar">
+                <div class="map-dot"></div>
+                <span class="map-address">72 Binh Hung Hoa, Binh Tan, Ho Chi Minh, Viet Nam</span>
+                <a href="https://maps.google.com/?q=10.811048,106.603477" target="_blank" class="map-open-btn">Mo Maps</a>
+            </div>
+            <div class="map-embed">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.0034436786127!2d106.60347664476335!3d10.81104751768888!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752b94acaf3cad%3A0x65ed3541d1ba0cf1!2zNzIsIELDrG5oIEjGsG5nIEjDsmEsIELDrG5oIFTDom4sIEjhu5MgQ2jDrSBNaW5oLCBWaeG7h3QgTmFt!5e0!3m2!1svi!2s!4v1773799199530!5m2!1svi!2s"
+                    allowfullscreen=""
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+            <div class="map-footer-bar">
+                <span class="map-coords">10.8110&#176;N, 106.6035&#176;E</span>
+                <div class="map-tags">
+                    <span class="map-tag">Ho Chi Minh</span>
+                    <span class="map-tag">Viet Nam</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <h2 class="section-title">Truyen Anime</h2>
     <div class="manga-list" id="mangaGrid"></div>
 </main>
@@ -80,5 +141,6 @@
 <script src="./js/script.js"></script>
 <!-- index.js: render danh sách truyện từ localStorage -->
 <script src="./js/index.js"></script>
+<script src="https://uhchat.net/code.php?f=a3d014"></script>
 </body>
 </html>

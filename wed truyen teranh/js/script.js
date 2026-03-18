@@ -142,12 +142,24 @@ function toggleTheme() {
     document.body.classList.toggle("light-mode");
     const isLight = document.body.classList.contains("light-mode");
     localStorage.setItem("theme", isLight ? "light" : "dark");
+    _syncThemeLabel(isLight);
+}
+
+function _syncThemeLabel(isLight) {
+    document.querySelectorAll(".toggle-label").forEach(function(el) {
+        el.textContent = isLight ? "Sáng" : "Tối";
+    });
 }
 
 /* Áp dụng theme đã lưu ngay khi trang load */
 (function applyTheme() {
-    if (localStorage.getItem("theme") === "light") {
-        document.body.classList.add("light-mode");
+    const isLight = localStorage.getItem("theme") === "light";
+    if (isLight) document.body.classList.add("light-mode");
+    /* Sync label sau khi DOM ready */
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", function() { _syncThemeLabel(isLight); });
+    } else {
+        _syncThemeLabel(isLight);
     }
 })();
 

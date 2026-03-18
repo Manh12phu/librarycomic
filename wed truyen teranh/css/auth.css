@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Noto+Sans:wght@400;500;700&display=swap');
+
 /**
  * ============================================================
  * auth.css — Giao diện trang Đăng nhập / Đăng ký
@@ -23,13 +25,13 @@
    Khung ngoài bao quanh cả 2 tab + form
 ---------------------------------------------------------- */
 .auth-container {
-    background: #1a1a1a;
+    background: #181818;
     border-radius: 14px;
     width: 100%;
     max-width: 400px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 24px 70px rgba(0,0,0,0.7);
     overflow: hidden;
-    border: 1px solid #2a2a2a;
+    border: 1px solid #2e2e2e;
 }
 
 /* ----------------------------------------------------------
@@ -85,10 +87,14 @@
 
 /* Tiêu đề form */
 .auth-form h2 {
+    font-family: 'Rajdhani',sans-serif;
     margin: 0 0 2px 0;
-    font-size: 20px;
+    font-size: 24px;
+    font-weight: 700;
     color: white;
     text-align: center;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
 }
 
 /* Mô tả nhỏ dưới tiêu đề */

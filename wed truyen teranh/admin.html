@@ -25,8 +25,8 @@
 <div id="adminPanel">
 
     <div class="admin-header">
-        <div>
-            <span class="logo-text">Library<span class="logo-accent">Comic</span></span>
+        <div style="display:flex;align-items:center;gap:10px;">
+            <img src="./images/librarycomic-logo.svg" alt="LibraryComic" height="38" style="display:block;">
             <span class="admin-badge">ADMIN</span>
         </div>
         <div class="header-right">
@@ -217,7 +217,9 @@ function downloadDetailPage(id) {
 </head>
 <body>
 <header>
-    <a href="./index.html" class="logo"><span class="logo-text">Library<span class="logo-accent">Comic</span></span></a>
+    <a href="./index.html" class="logo">
+        <img src="./images/librarycomic-logo.svg" alt="LibraryComic" height="48" style="display:block;">
+    </a>
     <button class="hamburger" id="hamburgerBtn" onclick="toggleMenu()"><span></span><span></span><span></span></button>
     <nav class="menu" id="mainMenu">
         <a href="./index.html">Trang chu</a>
@@ -240,7 +242,15 @@ function downloadDetailPage(id) {
         </div>
     </nav>
     <div class="search"><input type="text" id="searchInput" placeholder="Tim truyen..."></div>
-    <div class="theme-toggle"><button onclick="toggleTheme()">&#9728;</button></div>
+    <div class="theme-toggle">
+        <div class="toggle-track" onclick="toggleTheme()" title="Chuyển chế độ sáng/tối">
+            <div class="toggle-thumb">
+                <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3" stroke="white" stroke-width="2.5" stroke-linecap="round"/><line x1="12" y1="21" x2="12" y2="23" stroke="white" stroke-width="2.5" stroke-linecap="round"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke="white" stroke-width="2.5" stroke-linecap="round"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke="white" stroke-width="2.5" stroke-linecap="round"/><line x1="1" y1="12" x2="3" y2="12" stroke="white" stroke-width="2.5" stroke-linecap="round"/><line x1="21" y1="12" x2="23" y2="12" stroke="white" stroke-width="2.5" stroke-linecap="round"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="white" stroke-width="2.5" stroke-linecap="round"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="white" stroke-width="2.5" stroke-linecap="round"/></svg>
+            </div>
+        </div>
+        <span class="toggle-label" id="themeLabel">Tối</span>
+    </div>
     <div class="account" id="menuAccount">
         <a href="./login.html?tab=register" class="btn-register">Dang ky</a>
         <a href="./login.html" class="btn-login">Dang nhap</a>

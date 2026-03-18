@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Noto+Sans:wght@400;500;700&display=swap');
+
 /**
  * ============================================================
  * reader.css — Giao diện trang đọc truyện (chapter*.html)
@@ -52,7 +54,7 @@
     gap: 10px;
     flex-wrap: wrap;
     position: sticky;
-    top: 58px; /* Chiều cao header */
+    top: 62px;
     z-index: 100;
 }
 

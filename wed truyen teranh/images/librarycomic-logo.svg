@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 58" width="280" height="58" role="img" aria-label="LibraryComic">
+  <defs>
+    <!-- Diagonal hatch for main panel -->
+    <pattern id="hatch" x="0" y="0" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)">
+      <line x1="0" y1="0" x2="0" y2="6" stroke="rgba(255,255,255,0.12)" stroke-width="1.2"/>
+    </pattern>
+    <!-- Speed lines radiating from icon -->
+    <radialGradient id="speedfade" cx="0%" cy="50%" r="100%">
+      <stop offset="0%" stop-color="#ff4c4c" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#ff4c4c" stop-opacity="0"/>
+    </radialGradient>
+    <clipPath id="panel-clip">
+      <rect x="0" y="0" width="52" height="58" rx="5"/>
+    </clipPath>
+  </defs>
+
+  <!-- Speed lines bg (subtle, behind everything) -->
+  <rect x="0" y="0" width="280" height="58" fill="url(#speedfade)" rx="3"/>
+
+  <!-- Red left accent bar -->
+  <rect x="0" y="0" width="3.5" height="58" rx="2" fill="#ff4c4c"/>
+
+  <!-- ===== MANGA PANEL ICON ===== -->
+  <g transform="translate(10, 4)">
+    <!-- Main tall panel -->
+    <rect x="0" y="0" width="24" height="50" rx="4" fill="#ff4c4c"/>
+    <!-- Hatch texture overlay -->
+    <rect x="0" y="0" width="24" height="50" rx="4" fill="url(#hatch)"/>
+    <!-- White dot / action mark -->
+    <circle cx="17" cy="43" r="4" fill="white" opacity="0.95"/>
+    <circle cx="17" cy="43" r="2" fill="#ff4c4c"/>
+
+    <!-- Top-right panel -->
+    <rect x="28" y="0" width="20" height="23" rx="3" fill="#cc2222"/>
+    <!-- Horizontal speed lines in top panel -->
+    <line x1="32" y1="8"  x2="44" y2="8"  stroke="rgba(255,255,255,0.45)" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="32" y1="13" x2="40" y2="13" stroke="rgba(255,255,255,0.28)" stroke-width="1"   stroke-linecap="round"/>
+    <line x1="32" y1="18" x2="44" y2="18" stroke="rgba(255,255,255,0.45)" stroke-width="1.5" stroke-linecap="round"/>
+
+    <!-- Bottom-right panel -->
+    <rect x="28" y="27" width="20" height="23" rx="3" fill="#991111"/>
+    <!-- Star burst in bottom panel -->
+    <polygon points="38,32 39.5,36.5 44,36.5 40.5,39 42,43.5 38,41 34,43.5 35.5,39 32,36.5 36.5,36.5"
+             fill="rgba(255,255,255,0.18)"/>
+  </g>
+
+  <!-- Thin separator line -->
+  <line x1="70" y1="10" x2="70" y2="48" stroke="rgba(255,76,76,0.3)" stroke-width="0.75"/>
+
+  <!-- ===== TEXT: LIBRARY ===== -->
+  <text
+    x="78" y="30"
+    font-family="'Bebas Neue', 'Impact', 'Arial Black', sans-serif"
+    font-size="30"
+    font-weight="900"
+    letter-spacing="3"
+    fill="white"
+    dominant-baseline="auto"
+  >LIBRARY</text>
+
+  <!-- ===== TEXT: COMIC (red) ===== -->
+  <text
+    x="78" y="52"
+    font-family="'Bebas Neue', 'Impact', 'Arial Black', sans-serif"
+    font-size="30"
+    font-weight="900"
+    letter-spacing="3"
+    fill="#ff4c4c"
+    dominant-baseline="auto"
+  >COMIC</text>
+
+  <!-- Tagline under COMIC -->
+  <text
+    x="80" y="57"
+    font-family="'Courier New', Courier, monospace"
+    font-size="6.5"
+    letter-spacing="3"
+    fill="rgba(255,255,255,0.28)"
+    dominant-baseline="auto"
+  >READ · EXPLORE · ENJOY</text>
+</svg>
