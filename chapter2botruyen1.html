@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 1 - Friend Zone - Library Comic</title>
+    
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+    
+    <link rel="stylesheet" href="./css/reader.css">
+</head>
+<body class="reader-wrap">
+<!-- Page Loader -->
+<div id="pageLoader" style="position:fixed;inset:0;background:#0f0f0f;z-index:8998;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;transition:opacity 0.4s ease;">
+    <div class="w3-animate-zoom" style="text-align:center;">
+        <img src="./images/librarycomic-logo.svg" alt="LibraryComic" height="64" style="display:block;margin:0 auto 14px;">
+    </div>
+    <div style="display:flex;gap:8px;">
+        <div style="width:8px;height:8px;background:#ff4c4c;border-radius:50%;animation:ldot 0.7s ease-in-out infinite alternate;"></div>
+        <div style="width:8px;height:8px;background:#ff4c4c;border-radius:50%;animation:ldot 0.7s ease-in-out 0.15s infinite alternate;"></div>
+        <div style="width:8px;height:8px;background:#ff4c4c;border-radius:50%;animation:ldot 0.7s ease-in-out 0.3s infinite alternate;"></div>
+    </div>
+    <style>@keyframes ldot{0%{transform:translateY(0);opacity:1}100%{transform:translateY(-10px);opacity:.3}}</style>
+</div>
+<script>
+function _hideLoader(){
+    var l=document.getElementById('pageLoader');
+    if(!l||l._done)return;
+    l._done=true;
+    l.style.opacity='0';
+    setTimeout(function(){if(l)l.style.display='none';},400);
+}
+window.addEventListener('load', _hideLoader);
+// Backup: ẩn sau 2.5s dù load chưa xong
+setTimeout(_hideLoader, 2500);
+</script>
+
+
+<header>
+        <a href="./index.html" class="logo">
+        <img src="./images/librarycomic-logo.svg" alt="LibraryComic" height="48" style="display:block;">
+    </a>
+    <button class="hamburger" id="hamburgerBtn" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+    </button>
+    <nav class="menu" id="mainMenu">
+        <a href="./index.html">Trang chu</a>
+        <a href="./theodoi.html">Theo doi</a>
+        <a href="./lichsu.html">Lich su</a>
+        <div class="dropdown" id="genreDropdown">
+            <a href="#" class="dropbtn" id="dropbtnLink" onclick="toggleDropdown(event)">The loai</a>
+            <div class="dropdown-content" id="dropdownContent">
+                <a href="index.html?genre=all">Tat ca</a>
+                <a href="index.html?genre=action">Hanh dong</a>
+                <a href="index.html?genre=adventure">Phieu luu</a>
+                <a href="index.html?genre=isekai">Isekai</a>
+                <a href="index.html?genre=romance">Romance</a>
+                <a href="index.html?genre=comedy">Hai</a>
+            </div>
+        </div>
+        <div class="menu-auth-mobile" id="mobileAuthArea">
+            <a href="./login.html" class="btn-login-mobile">Dang nhap</a>
+            <a href="./login.html?tab=register" class="btn-register-mobile">Dang ky</a>
+        </div>
+    </nav>
+    <div class="search"><input type="text" id="searchInput" placeholder="Tim truyen..."></div>
+    <div class="theme-toggle">
+        <div class="toggle-track" onclick="toggleTheme()" title="Chuyển chế độ sáng/tối">
+            <div class="toggle-thumb">
+                <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3" stroke="white" stroke-width="2.5" stroke-linecap="round"/><line x1="12" y1="21" x2="12" y2="23" stroke="white" stroke-width="2.5" stroke-linecap="round"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke="white" stroke-width="2.5" stroke-linecap="round"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke="white" stroke-width="2.5" stroke-linecap="round"/><line x1="1" y1="12" x2="3" y2="12" stroke="white" stroke-width="2.5" stroke-linecap="round"/><line x1="21" y1="12" x2="23" y2="12" stroke="white" stroke-width="2.5" stroke-linecap="round"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="white" stroke-width="2.5" stroke-linecap="round"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="white" stroke-width="2.5" stroke-linecap="round"/></svg>
+            </div>
+        </div>
+        <span class="toggle-label" id="themeLabel">Tối</span>
+    </div>
+    <div class="account" id="menuAccount">
+        <a href="./login.html?tab=register" class="btn-register">Dang ky</a>
+        <a href="./login.html" class="btn-login">Dang nhap</a>
+    </div>
+</header>
+
+<div class="breadcrumb">
+    <a href="./index.html">Trang chu</a>
+    <span class="sep">&rsaquo;</span>
+    <a href="./friendzone.html">Friend Zone</a>
+    <span class="sep">&rsaquo;</span>
+    <span class="current">Chapter 1</span>
+</div>
+
+<div class="reader-controls">
+    <div class="reader-title">
+        <span>Friend Zone</span> &mdash; Chapter 1
+    </div>
+    <div class="reader-nav">
+        
+        <a href="#" id="prevLink">
+            <button class="nav-btn" disabled>&lsaquo; Truoc</button>
+        </a>
+        
+        <div class="chapter-select-wrap">
+            <button class="chapter-select-btn" onclick="toggleChapterDrop(event)">
+                Chuong 1 / 2
+            </button>
+            <div class="chapter-dropdown" id="chapterDrop">
+                <a href="./chapter2botruyen1.html" class="active">Chapter 1</a>
+                <a href="./chapter2botruyen2.html" class="">Chapter 2</a>
+            </div>
+        </div>
+        <a href="./chapter2botruyen2.html" id="nextLink">
+            <button class="nav-btn" >Sau &rsaquo;</button>
+        </a>
+    </div>
+</div>
+
+<div class="reader-images"
+    id="chapterImages"
+    data-manga="friendzone"
+    data-chapter="chapter1"
+    data-pages="10"">
+</div>
+
+<div class="reader-bottom">
+    <a href="#"><button class="nav-btn" disabled>&lsaquo; Chuong truoc</button></a>
+    <a href="./friendzone.html"><button class="nav-btn">Danh sach chuong</button></a>
+    <a href="./chapter2botruyen2.html"><button class="nav-btn" >Chuong sau &rsaquo;</button></a>
+</div>
+
+<div class="comment-section">
+    <h2 style="border-left:4px solid #ff4c4c;padding-left:12px;font-size:16px;margin-bottom:16px;">Binh luan</h2>
+    <div class="comment-input">
+        <input type="text" id="nameInput" placeholder="Ten cua ban">
+        <textarea id="commentInput" placeholder="Viet binh luan..."></textarea>
+        <button onclick="addComment()">Gui</button>
+    </div>
+    <div id="commentList"></div>
+</div>
+
+<footer class="w3-container w3-dark-grey w3-padding-32">
+    <div class="w3-row-padding">
+        <div class="w3-third w3-margin-bottom">
+            <h3 class="w3-text-red">&#128213; LibraryComic</h3>
+            <p class="w3-text-light-grey">Website doc truyen tranh anime/manga mien phi. Cap nhat chapter moi nhanh nhat.</p>
+            <div class="w3-margin-top">
+                <a href="https://facebook.com" target="_blank" class="w3-button w3-circle w3-red w3-small w3-margin-right"><i class="fa fa-facebook"></i></a>
+                <a href="https://youtube.com" target="_blank" class="w3-button w3-circle w3-red w3-small w3-margin-right"><i class="fa fa-youtube"></i></a>
+                <a href="https://discord.com" target="_blank" class="w3-button w3-circle w3-red w3-small"><i class="fa fa-commenting"></i></a>
+            </div>
+        </div>
+        <div class="w3-third w3-margin-bottom">
+            <h4 class="w3-text-white">&#128279; Lien ket nhanh</h4>
+            <ul style="list-style:none;padding:0;margin:0;">
+                <li class="w3-padding-small"><a href="./index.html" class="w3-text-light-grey" style="text-decoration:none;">&#8250; Trang chu</a></li>
+                <li class="w3-padding-small"><a href="./theodoi.html" class="w3-text-light-grey" style="text-decoration:none;">&#8250; Theo doi</a></li>
+                <li class="w3-padding-small"><a href="./lichsu.html" class="w3-text-light-grey" style="text-decoration:none;">&#8250; Lich su doc</a></li>
+                <li class="w3-padding-small"><a href="./login.html" class="w3-text-light-grey" style="text-decoration:none;">&#8250; Dang nhap</a></li>
+                <li class="w3-padding-small"><a href="./login.html?tab=register" class="w3-text-light-grey" style="text-decoration:none;">&#8250; Dang ky</a></li>
+            </ul>
+        </div>
+        <div class="w3-third w3-margin-bottom">
+            <h4 class="w3-text-white">&#128214; The loai</h4>
+            <div class="w3-margin-bottom">
+                <a href="index.html?genre=action" class="w3-tag w3-red w3-small w3-margin-bottom w3-margin-right">Hanh dong</a>
+                <a href="index.html?genre=isekai" class="w3-tag w3-red w3-small w3-margin-bottom w3-margin-right">Isekai</a>
+                <a href="index.html?genre=romance" class="w3-tag w3-red w3-small w3-margin-bottom w3-margin-right">Romance</a>
+                <a href="index.html?genre=comedy" class="w3-tag w3-red w3-small w3-margin-bottom w3-margin-right">Hai</a>
+                <a href="index.html?genre=adventure" class="w3-tag w3-red w3-small w3-margin-bottom w3-margin-right">Phieu luu</a>
+            </div>
+            <h4 class="w3-text-white">&#128205; Lien he</h4>
+            <p class="w3-text-light-grey w3-small">
+                <i class="fa fa-map-marker"></i> 72 Binh Hung Hoa, Binh Tan, TP.HCM<br>
+                <i class="fa fa-envelope"></i> <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="ed81848f9f8c9f948e8280848ead8a808c8481c38e8280">[email&#160;protected]</a><br>
+                <i class="fa fa-clock-o"></i> Cap nhat: Hang ngay
+            </p>
+        </div>
+    </div>
+    <div class="w3-border-top w3-border-grey w3-padding-top w3-margin-top w3-center">
+        <p class="w3-text-grey w3-small">&#169; 2026 LibraryComic &nbsp;|&nbsp; Khong luu tru noi dung ban quyen &nbsp;|&nbsp; <a href="#" class="w3-text-grey">Chinh sach</a> &nbsp;|&nbsp; <a href="#" class="w3-text-grey">he</a></p>
+    </div>
+</footer>
+
+<script src="./js/script.js"></script>
+<script src="./js/reader.js"></script>
+<script src="./js/decor.js"></script>
+<script src="./js/chatbox.js"></script>
+<script src="./js/transition.js"></script>
+</body>
+</html>
