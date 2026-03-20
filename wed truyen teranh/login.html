@@ -5,20 +5,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dang nhap / Dang ky - Library Comic</title>
 
-    <!-- CSS chung toàn web -->
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="./css/style.css">
-    <!-- CSS riêng trang đăng nhập/đăng ký -->
+    
     <link rel="stylesheet" href="./css/auth.css">
 </head>
 <body>
+<!-- Page Loader -->
+<div id="pageLoader" style="position:fixed;inset:0;background:#0f0f0f;z-index:8998;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;transition:opacity 0.4s ease;">
+    <div class="w3-animate-zoom" style="text-align:center;">
+        <img src="./images/librarycomic-logo.svg" alt="LibraryComic" height="64" style="display:block;margin:0 auto 14px;">
+    </div>
+    <div style="display:flex;gap:8px;">
+        <div style="width:8px;height:8px;background:#ff4c4c;border-radius:50%;animation:ldot 0.7s ease-in-out infinite alternate;"></div>
+        <div style="width:8px;height:8px;background:#ff4c4c;border-radius:50%;animation:ldot 0.7s ease-in-out 0.15s infinite alternate;"></div>
+        <div style="width:8px;height:8px;background:#ff4c4c;border-radius:50%;animation:ldot 0.7s ease-in-out 0.3s infinite alternate;"></div>
+    </div>
+    <style>@keyframes ldot{0%{transform:translateY(0);opacity:1}100%{transform:translateY(-10px);opacity:.3}}</style>
+</div>
+<script>
+function _hideLoader(){
+    var l=document.getElementById('pageLoader');
+    if(!l||l._done)return;
+    l._done=true;
+    l.style.opacity='0';
+    setTimeout(function(){if(l)l.style.display='none';},400);
+}
+window.addEventListener('load', _hideLoader);
+// Backup: ẩn sau 2.5s dù load chưa xong
+setTimeout(_hideLoader, 2500);
+</script>
 
-<!-- ========================================================
-     HEADER — thanh điều hướng trên cùng
-     Giữ đơn giản: chỉ logo + nút quay về trang chủ
-======================================================== -->
+
 <header>
-    <a href="./index.html" class="logo">
-        <span class="logo-text">Library<span class="logo-accent">Comic</span></span>
+        <a href="./index.html" class="logo">
+        <img src="./images/librarycomic-logo.svg" alt="LibraryComic" height="48" style="display:block;">
     </a>
     <div class="account" style="margin-left:auto;">
         <a href="./index.html" class="btn-register">Quay ve trang chu</a>
@@ -34,28 +56,18 @@
     </div>
 </header>
 
-
-<!-- ========================================================
-     NỘI DUNG CHÍNH — form đăng nhập / đăng ký
-======================================================== -->
 <div class="auth-page">
     <div class="auth-container">
 
-        <!-- TAB ĐIỀU HƯỚNG: chuyển qua lại giữa 2 form -->
         <div class="auth-tabs">
             <button class="auth-tab" id="tabLogin"    onclick="switchTab('login')">   Dang nhap</button>
             <button class="auth-tab" id="tabRegister" onclick="switchTab('register')">Dang ky</button>
         </div>
 
-        <!-- ------------------------------------------------
-             FORM ĐĂNG NHẬP
-             Hiển thị mặc định khi vào trang
-        ------------------------------------------------ -->
         <div class="auth-form" id="formLogin">
             <h2>Chao mung tro lai</h2>
             <p class="subtitle">Dang nhap de tiep tuc doc truyen</p>
 
-            <!-- Vùng hiển thị thông báo lỗi / thành công -->
             <div id="loginMessage" class="auth-message"></div>
 
             <div class="input-group">
@@ -74,22 +86,15 @@
 
             <button class="submit-btn" onclick="login()">Dang nhap</button>
 
-            <!-- Link chuyển sang tab đăng ký -->
             <div class="auth-switch">
                 Chua co tai khoan? <a onclick="switchTab('register')">Dang ky ngay</a>
             </div>
         </div>
 
-
-        <!-- ------------------------------------------------
-             FORM ĐĂNG KÝ
-             Ẩn mặc định, hiện khi nhấn tab hoặc ?tab=register
-        ------------------------------------------------ -->
         <div class="auth-form" id="formRegister">
             <h2>Tao tai khoan moi</h2>
             <p class="subtitle">Mien phi, doc truyen khong gioi han</p>
 
-            <!-- Vùng hiển thị thông báo lỗi / thành công -->
             <div id="registerMessage" class="auth-message"></div>
 
             <div class="input-group">
@@ -108,32 +113,52 @@
 
             <button class="submit-btn" onclick="register()">Dang ky</button>
 
-            <!-- Link chuyển sang tab đăng nhập -->
             <div class="auth-switch">
                 Da co tai khoan? <a onclick="switchTab('login')">Dang nhap</a>
             </div>
         </div>
 
-        <!-- Link quay về trang chủ ở đáy hộp -->
         <a href="./index.html" class="back-home">Quay ve trang chu</a>
 
     </div>
 </div>
 
-
-<!-- ========================================================
-     FOOTER
-======================================================== -->
-<footer>
-    <p>&#169; 2026 LibraryComic</p>
+<footer class="w3-container w3-dark-grey w3-padding-32">
+    <div class="w3-row-padding">
+        <div class="w3-third w3-margin-bottom">
+            <h3 class="w3-text-red">&#128213; LibraryComic</h3>
+            <p class="w3-text-light-grey">Website doc truyen tranh anime/manga mien phi. Cap nhat chapter moi nhanh nhat.</p>
+            <div class="w3-margin-top">
+                <a href="https://facebook.com" target="_blank" class="w3-button w3-circle w3-red w3-small w3-margin-right"><i class="fa fa-facebook"></i></a>
+                <a href="https://youtube.com" target="_blank" class="w3-button w3-circle w3-red w3-small w3-margin-right"><i class="fa fa-youtube"></i></a>
+                <a href="https://discord.com" target="_blank" class="w3-button w3-circle w3-red w3-small"><i class="fa fa-commenting"></i></a>
+            </div>
+        </div>
+        <div class="w3-third w3-margin-bottom">
+            <h4 class="w3-text-white">&#128279; Lien ket nhanh</h4>
+            <ul style="list-style:none;padding:0;margin:0;">
+                <li class="w3-padding-small"><a href="./index.html" class="w3-text-light-grey" style="text-decoration:none;">&#8250; Trang chu</a></li>
+                <li class="w3-padding-small"><a href="./theodoi.html" class="w3-text-light-grey" style="text-decoration:none;">&#8250; Theo doi</a></li>
+                <li class="w3-padding-small"><a href="./lichsu.html" class="w3-text-light-grey" style="text-decoration:none;">&#8250; Lich su doc</a></li>
+                <li class="w3-padding-small"><a href="./login.html" class="w3-text-light-grey" style="text-decoration:none;">&#8250; Dang nhap</a></li>
+                <li class="w3-padding-small"><a href="./login.html?tab=register" class="w3-text-light-grey" style="text-decoration:none;">&#8250; Dang ky</a></li>
+            </ul>
+        </div>
+        <div class="w3-third w3-margin-bottom">
+            <h4 class="w3-text-white">&#128214; The loai</h4>
+            <div class="w3-margin-bottom">
+                <a href="index.html?genre=action" class="w3-tag w3-red w3-small w3-margin-bottom w3-margin-right">Hanh dong</a>
+                <a href="index.html?genre=isekai" class="w3-tag w3-red w3-small w3-margin-bottom w3-margin-right">Isekai</a>
+                <a href="index.html?genre=romance" class="w3-tag w3-red w3-small w3-margin-bottom w3-margin-right">Romance</a>
+                <a href="index.html?genre=comedy" class="w3-tag w3-red w3-small w3-margin-bottom w3-margin-right">Hai</a>
+                <a href="index.html?genre=adventure" class="w3-tag w3-red w3-small w3-margin-bottom w3-margin-right">Phieu luu</a>
+            </div>
+            <h4 class="w3-text-white">&#128205; he</a></p>
+    </div>
 </footer>
 
-
-<!-- ========================================================
-     JS: auth.js chứa toàn bộ logic đăng nhập / đăng ký
-     (switchTab, login, register, showMsg, initTab)
-======================================================== -->
 <script src="./js/auth.js"></script>
-
+<script src="./js/chatbox.js"></script>
+<script src="./js/transition.js"></script>
 </body>
 </html>

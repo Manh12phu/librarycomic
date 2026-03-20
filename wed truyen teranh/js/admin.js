@@ -5,6 +5,7 @@
  *            tạo file HTML chapter tự động, tải file chi tiết
  * ============================================================
  */
+
 // ===== CẤU HÌNH ADMIN =====
 // ĐỔI MẬT KHẨU Ở ĐÂY
 const ADMIN_USER = "admin";
@@ -293,7 +294,193 @@ function saveManga() {
     resetForm();
 }
 
+function editManga(id) {
+    const list = getMangaList();
+    const m = list.find(x => x.id === id);
+    if (!m) return;
+
+    document.getElementById("editId").value = m.id;
+    document.getElementById("fTitle").value = m.title;
+    document.getElementById("fAuthor").value = m.author;
+    document.getElementById("fFolder").value = m.folder;
+    document.getElementById("fImg").value = m.img;
+    document.getElementById("fDesc").value = m.desc || "";
+    document.getElementById("fStatus").value = m.status;
+    document.getElementById("formTitle").textContent = "Chinh sua truyen: " + m.title;
+    previewImg(m.img);
+
+    // Genres
+    document.querySelectorAll(".genre-check").forEach(l => {
+        const val = l.querySelector("input").value;
+        const checked = (m.genres || []).includes(val);
+        l.querySelector("input").checked = checked;
+        l.classList.toggle("checked", checked);
+    });
+
+    // Chapters
+    document.getElementById("chaptersBuilder").innerHTML = "";
+    chapterCount = 0;
+    (m.chapters || []).forEach(c => addChapterRow(c.title, c.pages || ""));
+    if (!m.chapters || m.chapters.length === 0) addChapterRow();
+
+    // Scroll to form
+    document.querySelector(".add-form").scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function deleteManga(id) {
+    if (!confirm("Ban co chac muon xoa truyen nay?")) return;
+    let list = getMangaList();
+    list = list.filter(m => m.id !== id);
+    saveMangaList(list);
+    renderStats();
+    renderTable();
+    showToast("Da xoa truyen.");
+}
+
+// ===== TOAST =====
+function showToast(msg, type = "success") {
+    const t = document.getElementById("toast");
+    t.textContent = msg;
+    t.className = "toast show" + (type === "error" ? " error" : "");
+    setTimeout(() => t.className = "toast", 2800);
+}
+
+// ===== TẢI FILE TRANG CHI TIẾT =====
+// CSS dùng: style.css (không cần admin.css — đó là CSS riêng cho trang admin)
+function downloadDetailPage(id) {
+    const list = getMangaList();
+    const m = list.find(x => x.id === id);
+    if (!m) return;
+
+    const html = `<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${m.title} - Library Comic</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+<header>
+    <a href="./index.html" class="logo">
+        <img src="./images/librarycomic-logo.svg" alt="LibraryComic" height="48" style="display:block;">
+    </a>
+    <button class="hamburger" id="hamburgerBtn" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+    <nav class="menu" id="mainMenu">
+        <a href="./index.html">Trang chu</a>
+        <a href="./theodoi.html">Theo doi</a>
+        <a href="./lichsu.html">Lich su</a>
+        <div class="dropdown" id="genreDropdown">
+            <a href="#" class="dropbtn" id="dropbtnLink" onclick="toggleDropdown(event)">The loai</a>
+            <div class="dropdown-content" id="dropdownContent">
+                <a href="index.html?genre=all">Tat ca</a>
+                <a href="index.html?genre=action">Hanh dong</a>
+                <a href="index.html?genre=adventure">Phieu luu</a>
+                <a href="index.html?genre=isekai">Isekai</a>
+                <a href="index.html?genre=romance">Romance</a>
+                <a href="index.html?genre=comedy">Hai</a>
+            </div>
+        </div>
+        <div class="menu-auth-mobile" id="mobileAuthArea">
+            <a href="./login.html" class="btn-login-mobile">Dang nhap</a>
+            <a href="./login.html?tab=register" class="btn-register-mobile">Dang ky</a>
+        </div>
+    </nav>
+    <div class="search"><input type="text" id="searchInput" placeholder="Tim truyen..."></div>
+    <div class="theme-toggle">
+        <div class="toggle-track" onclick="toggleTheme()" title="Chuyển chế độ sáng/tối">
+            <div class="toggle-thumb">
+                <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3" stroke="white" stroke-width="2.5" stroke-linecap="round"/><line x1="12" y1="21" x2="12" y2="23" stroke="white" stroke-width="2.5" stroke-linecap="round"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke="white" stroke-width="2.5" stroke-linecap="round"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke="white" stroke-width="2.5" stroke-linecap="round"/><line x1="1" y1="12" x2="3" y2="12" stroke="white" stroke-width="2.5" stroke-linecap="round"/><line x1="21" y1="12" x2="23" y2="12" stroke="white" stroke-width="2.5" stroke-linecap="round"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="white" stroke-width="2.5" stroke-linecap="round"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="white" stroke-width="2.5" stroke-linecap="round"/></svg>
+            </div>
+        </div>
+        <span class="toggle-label" id="themeLabel">Tối</span>
+    </div>
+    <div class="account" id="menuAccount">
+        <a href="./login.html?tab=register" class="btn-register">Dang ky</a>
+        <a href="./login.html" class="btn-login">Dang nhap</a>
+    </div>
+</header>
+<main>
+    <section class="manga-detail">
+        <img src="${m.img}" class="detail-img" alt="${m.title}">
+        <div class="detail-info">
+            <h1 class="detail-title">${m.title}</h1>
+            <p><b>Tac gia:</b> ${m.author}</p>
+            <p><b>The loai:</b> ${(m.genres||[]).map(g => `<span class="tag">${g}</span>`).join(" ")}</p>
+            <p><b>Tinh trang:</b> ${m.status === "completed" ? "Hoan thanh" : "Dang cap nhat"}</p>
+            <p><b>Mo ta:</b> ${m.desc||""}</p>
+            <button class="follow-btn" onclick="followManga('${m.title}','${m.img}','${m.detailLink}')">Theo doi</button>
+        </div>
+    </section>
+    <section class="chapter-list">
+        <h2>Danh sach chuong</h2>
+        <div class="chapters">
+            ${(m.chapters||[]).map((c,i) => `<a href="./${m.id}_chapter${i+1}.html" class="chapter-item"><span>${c.title}</span></a>`).join("\n            ")}
+        </div>
+    </section>
+</main>
+<footer class="w3-container w3-dark-grey w3-padding-32">
+    <div class="w3-row-padding">
+        <div class="w3-third w3-margin-bottom">
+            <h3 class="w3-text-red">&#128213; LibraryComic</h3>
+            <p class="w3-text-light-grey">Website doc truyen tranh anime/manga mien phi. Cap nhat chapter moi nhanh nhat.</p>
+            <div class="w3-margin-top">
+                <a href="https://facebook.com" target="_blank" class="w3-button w3-circle w3-red w3-small w3-margin-right"><i class="fa fa-facebook"></i></a>
+                <a href="https://youtube.com" target="_blank" class="w3-button w3-circle w3-red w3-small w3-margin-right"><i class="fa fa-youtube"></i></a>
+                <a href="https://discord.com" target="_blank" class="w3-button w3-circle w3-red w3-small"><i class="fa fa-commenting"></i></a>
+            </div>
+        </div>
+        <div class="w3-third w3-margin-bottom">
+            <h4 class="w3-text-white">&#128279; Lien ket nhanh</h4>
+            <ul style="list-style:none;padding:0;margin:0;">
+                <li class="w3-padding-small"><a href="./index.html" class="w3-text-light-grey" style="text-decoration:none;">&#8250; Trang chu</a></li>
+                <li class="w3-padding-small"><a href="./theodoi.html" class="w3-text-light-grey" style="text-decoration:none;">&#8250; Theo doi</a></li>
+                <li class="w3-padding-small"><a href="./lichsu.html" class="w3-text-light-grey" style="text-decoration:none;">&#8250; Lich su doc</a></li>
+                <li class="w3-padding-small"><a href="./login.html" class="w3-text-light-grey" style="text-decoration:none;">&#8250; Dang nhap</a></li>
+                <li class="w3-padding-small"><a href="./login.html?tab=register" class="w3-text-light-grey" style="text-decoration:none;">&#8250; Dang ky</a></li>
+            </ul>
+        </div>
+        <div class="w3-third w3-margin-bottom">
+            <h4 class="w3-text-white">&#128214; The loai</h4>
+            <div class="w3-margin-bottom">
+                <a href="index.html?genre=action" class="w3-tag w3-red w3-small w3-margin-bottom w3-margin-right">Hanh dong</a>
+                <a href="index.html?genre=isekai" class="w3-tag w3-red w3-small w3-margin-bottom w3-margin-right">Isekai</a>
+                <a href="index.html?genre=romance" class="w3-tag w3-red w3-small w3-margin-bottom w3-margin-right">Romance</a>
+                <a href="index.html?genre=comedy" class="w3-tag w3-red w3-small w3-margin-bottom w3-margin-right">Hai</a>
+                <a href="index.html?genre=adventure" class="w3-tag w3-red w3-small w3-margin-bottom w3-margin-right">Phieu luu</a>
+            </div>
+            <h4 class="w3-text-white">&#128205; Lien he</h4>
+            <p class="w3-text-light-grey w3-small">
+                <i class="fa fa-map-marker"></i> 72 Binh Hung Hoa, Binh Tan, TP.HCM<br>
+                <i class="fa fa-envelope"></i> librarycomic@gmail.com<br>
+                <i class="fa fa-clock-o"></i> Cap nhat: Hang ngay
+            </p>
+        </div>
+    </div>
+    <div class="w3-border-top w3-border-grey w3-padding-top w3-margin-top w3-center">
+        <p class="w3-text-grey w3-small">&#169; 2026 LibraryComic &nbsp;|&nbsp; Khong luu tru noi dung ban quyen</p>
+    </div>
+</footer>
+<script src="./js/script.js"><\/script>
+</body>
+</html>`;
+
+    const fname = m.id + "_detail.html";
+    const blob = new Blob([html], { type: "text/html;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url; a.download = fname;
+    document.body.appendChild(a); a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    showToast("Da tai file " + fname);
+}
+
 // ===== TẠO FILE CHAPTER HTML =====
+// CSS dùng: style.css + reader.css (tách riêng, không dùng inline style)
 function generateChapterFiles(manga) {
     if (!manga.chapters || manga.chapters.length === 0) return;
 
@@ -339,43 +526,28 @@ function buildChapterHTML(manga, chap, chapNum, total, mangaKey, prevFile, nextF
     const prevHref = prevFile === "#" ? "#" : prevFile;
     const nextHref = nextFile === "#" ? "#" : nextFile;
 
+    // Tạo dropdown chương
+    const chapterDropItems = manga.chapters.map((c, i) =>
+        `<a href="./${manga.id}_chapter${i+1}.html" class="${i+1===chapNum?'active':''}">${c.title}</a>`
+    ).join("");
+
+    // CSS chỉ dùng link tag — không có inline style
     return `<!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>${chap.title} - ${manga.title} - Library Comic</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="./css/style.css">
-    <style>
-        .reader-wrap { background: #0d0d0d; min-height: 100vh; }
-        .breadcrumb { display:flex; align-items:center; gap:8px; padding:12px 20px; background:#161616; border-bottom:1px solid #222; font-size:13px; color:#666; flex-wrap:wrap; }
-        .breadcrumb a { color:#999; transition:color 0.2s; } .breadcrumb a:hover { color:#ff4c4c; }
-        .breadcrumb .sep { color:#444; } .breadcrumb .current { color:#ff4c4c; font-weight:bold; }
-        .reader-controls { display:flex; align-items:center; justify-content:space-between; padding:10px 20px; background:#161616; border-bottom:1px solid #1e1e1e; gap:10px; flex-wrap:wrap; position:sticky; top:58px; z-index:100; }
-        .reader-title { font-size:14px; color:#ccc; font-weight:bold; flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-        .reader-title span { color:#ff4c4c; }
-        .reader-nav { display:flex; align-items:center; gap:8px; flex-shrink:0; }
-        .nav-btn { padding:7px 16px; background:#2a2a2a; color:#ccc; border:1px solid #333; border-radius:5px; font-size:13px; cursor:pointer; transition:0.2s; font-family:inherit; white-space:nowrap; }
-        .nav-btn:hover:not(:disabled) { background:#ff4c4c; color:white; border-color:#ff4c4c; }
-        .nav-btn:disabled { opacity:0.3; cursor:not-allowed; }
-        .chapter-select-wrap { position:relative; }
-        .chapter-select-btn { padding:7px 14px; background:#222; color:#ccc; border:1px solid #333; border-radius:5px; font-size:13px; cursor:pointer; transition:0.2s; font-family:inherit; }
-        .chapter-select-btn:hover { background:#333; color:white; }
-        .chapter-dropdown { display:none; position:absolute; top:calc(100% + 6px); left:50%; transform:translateX(-50%); background:#1e1e1e; border:1px solid #333; border-radius:8px; min-width:160px; z-index:500; overflow:hidden; box-shadow:0 8px 25px rgba(0,0,0,0.6); }
-        .chapter-dropdown.open { display:block; }
-        .chapter-dropdown a { display:block; padding:11px 16px; color:#ccc; font-size:13px; transition:0.15s; border-bottom:1px solid #252525; }
-        .chapter-dropdown a:last-child { border-bottom:none; } .chapter-dropdown a:hover { background:#ff4c4c; color:white; } .chapter-dropdown a.active { color:#ff4c4c; font-weight:bold; }
-        .reader-images { display:flex; flex-direction:column; align-items:center; background:#0d0d0d; }
-        .reader-images img { width:720px; max-width:100%; display:block; margin:0 auto; }
-        .reader-bottom { display:flex; align-items:center; justify-content:center; gap:12px; padding:24px 20px; background:#161616; border-top:1px solid #222; }
-        .reader-bottom .nav-btn { padding:10px 28px; font-size:14px; }
-        .comment-section { max-width:760px; margin:0 auto; padding:28px 20px 40px; }
-        @media(max-width:768px){ .reader-controls{top:56px;padding:8px 12px;} .nav-btn{padding:7px 10px;font-size:12px;} .chapter-dropdown{left:auto;right:0;transform:none;} .breadcrumb{padding:10px 14px;font-size:12px;} }
-    </style>
+    <link rel="stylesheet" href="./css/reader.css">
 </head>
 <body class="reader-wrap">
 <header>
-    <a href="./index.html" class="logo"><span class="logo-text">Library<span class="logo-accent">Comic</span></span></a>
+    <a href="./index.html" class="logo">
+        <img src="./images/librarycomic-logo.svg" alt="LibraryComic" height="48" style="display:block;">
+    </a>
     <button class="hamburger" id="hamburgerBtn" onclick="toggleMenu()"><span></span><span></span><span></span></button>
     <nav class="menu" id="mainMenu">
         <a href="./index.html">Trang chu</a>
@@ -398,7 +570,15 @@ function buildChapterHTML(manga, chap, chapNum, total, mangaKey, prevFile, nextF
         </div>
     </nav>
     <div class="search"><input type="text" id="searchInput" placeholder="Tim truyen..."></div>
-    <div class="theme-toggle"><button onclick="toggleTheme()">&#9728;</button></div>
+    <div class="theme-toggle">
+        <div class="toggle-track" onclick="toggleTheme()" title="Chuyển chế độ sáng/tối">
+            <div class="toggle-thumb">
+                <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3" stroke="white" stroke-width="2.5" stroke-linecap="round"/><line x1="12" y1="21" x2="12" y2="23" stroke="white" stroke-width="2.5" stroke-linecap="round"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke="white" stroke-width="2.5" stroke-linecap="round"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke="white" stroke-width="2.5" stroke-linecap="round"/><line x1="1" y1="12" x2="3" y2="12" stroke="white" stroke-width="2.5" stroke-linecap="round"/><line x1="21" y1="12" x2="23" y2="12" stroke="white" stroke-width="2.5" stroke-linecap="round"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="white" stroke-width="2.5" stroke-linecap="round"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="white" stroke-width="2.5" stroke-linecap="round"/></svg>
+            </div>
+        </div>
+        <span class="toggle-label" id="themeLabel">Tối</span>
+    </div>
     <div class="account" id="menuAccount">
         <a href="./login.html?tab=register" class="btn-register">Dang ky</a>
         <a href="./login.html" class="btn-login">Dang nhap</a>
@@ -416,14 +596,14 @@ function buildChapterHTML(manga, chap, chapNum, total, mangaKey, prevFile, nextF
 <div class="reader-controls">
     <div class="reader-title"><span>${manga.title}</span> &mdash; ${chap.title}</div>
     <div class="reader-nav">
-        <a href="${prevHref}"><button class="nav-btn" ${prevDisabled}>&lsaquo; Truoc</button></a>
+        <a href="${prevHref}" id="prevLink"><button class="nav-btn" ${prevDisabled}>&lsaquo; Truoc</button></a>
         <div class="chapter-select-wrap">
             <button class="chapter-select-btn" onclick="toggleChapterDrop(event)">Chuong ${chapNum} / ${total}</button>
             <div class="chapter-dropdown" id="chapterDrop">
-                ${manga.chapters.map((c, i) => `<a href="./${manga.id}_chapter${i+1}.html" class="${i+1===chapNum?'active':''}">${c.title}</a>`).join("")}
+                ${chapterDropItems}
             </div>
         </div>
-        <a href="${nextHref}"><button class="nav-btn" ${nextDisabled}>Sau &rsaquo;</button></a>
+        <a href="${nextHref}" id="nextLink"><button class="nav-btn" ${nextDisabled}>Sau &rsaquo;</button></a>
     </div>
 </div>
 
@@ -449,12 +629,35 @@ function buildChapterHTML(manga, chap, chapNum, total, mangaKey, prevFile, nextF
     <div id="commentList"></div>
 </div>
 
-<footer><p>&#169; 2026 LibraryComic</p></footer>
-<script src="./js/script.js">
+<footer class="w3-container w3-dark-grey w3-padding-32">
+    <div class="w3-row-padding">
+        <div class="w3-third w3-margin-bottom">
+            <h3 class="w3-text-red">&#128213; LibraryComic</h3>
+            <p class="w3-text-light-grey">Website doc truyen tranh anime/manga mien phi. Cap nhat chapter moi nhanh nhat.</p>
+        </div>
+        <div class="w3-third w3-margin-bottom">
+            <h4 class="w3-text-white">&#128279; Lien ket nhanh</h4>
+            <ul style="list-style:none;padding:0;margin:0;">
+                <li class="w3-padding-small"><a href="./index.html" class="w3-text-light-grey" style="text-decoration:none;">&#8250; Trang chu</a></li>
+                <li class="w3-padding-small"><a href="./theodoi.html" class="w3-text-light-grey" style="text-decoration:none;">&#8250; Theo doi</a></li>
+                <li class="w3-padding-small"><a href="./lichsu.html" class="w3-text-light-grey" style="text-decoration:none;">&#8250; Lich su doc</a></li>
+            </ul>
+        </div>
+        <div class="w3-third w3-margin-bottom">
+            <h4 class="w3-text-white">&#128205; Lien he</h4>
+            <p class="w3-text-light-grey w3-small">
+                <i class="fa fa-map-marker"></i> 72 Binh Hung Hoa, Binh Tan, TP.HCM<br>
+                <i class="fa fa-envelope"></i> librarycomic@gmail.com
+            </p>
+        </div>
+    </div>
+    <div class="w3-border-top w3-border-grey w3-padding-top w3-margin-top w3-center">
+        <p class="w3-text-grey w3-small">&#169; 2026 LibraryComic</p>
+    </div>
+</footer>
 
-function toggleChapterDrop(e) { e.stopPropagation(); document.getElementById("chapterDrop").classList.toggle("open"); }
-    document.addEventListener("click", function() { const d=document.getElementById("chapterDrop"); if(d) d.classList.remove("open"); });
-    document.addEventListener("keydown", function(e) {
-        if(e.key==="ArrowLeft" && "${prevHref}"!=="#") window.location.href="${prevHref}";
-        if(e.key==="ArrowRight" && "${nextHref}"!=="#") window.location.href="${nextHref}";
-    });
+<script src="./js/script.js"><\/script>
+<script src="./js/reader.js"><\/script>
+</body>
+</html>`;
+}

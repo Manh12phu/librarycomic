@@ -6,27 +6,47 @@
     <title>Library Comic</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
+<!-- Màn hình loading mở trang -->
+<div id="pageLoader" style="position:fixed;inset:0;background:#0f0f0f;z-index:8998;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;transition:opacity 0.4s ease;">
+    <div class="w3-animate-zoom" style="text-align:center;">
+        <img src="./images/librarycomic-logo.svg" alt="LibraryComic" height="64" style="display:block;margin:0 auto 14px;">
+    </div>
+    <div style="display:flex;gap:8px;">
+        <div style="width:8px;height:8px;background:#ff4c4c;border-radius:50%;animation:ldot 0.7s ease-in-out infinite alternate;"></div>
+        <div style="width:8px;height:8px;background:#ff4c4c;border-radius:50%;animation:ldot 0.7s ease-in-out 0.15s infinite alternate;"></div>
+        <div style="width:8px;height:8px;background:#ff4c4c;border-radius:50%;animation:ldot 0.7s ease-in-out 0.3s infinite alternate;"></div>
+    </div>
+    <style>@keyframes ldot{0%{transform:translateY(0);opacity:1}100%{transform:translateY(-10px);opacity:.3}}</style>
+</div>
+<script>
+window.addEventListener('load',function(){
+    var l=document.getElementById('pageLoader');
+    l.style.opacity='0';
+    setTimeout(function(){l.style.display='none';},400);
+});
+</script>
+
+
 
 <header>
-    <a href="./index.html" class="logo">
+        <a href="./index.html" class="logo">
         <img src="./images/librarycomic-logo.svg" alt="LibraryComic" height="48" style="display:block;">
     </a>
 
-    <!-- Nút hamburger hiện trên mobile -->
     <button class="hamburger" id="hamburgerBtn" onclick="toggleMenu()">
         <span></span><span></span><span></span>
     </button>
 
-    <!-- Menu điều hướng chính -->
     <nav class="menu" id="mainMenu">
         <a href="./index.html" class="active-page">Trang chu</a>
         <a href="./theodoi.html">Theo doi</a>
         <a href="./lichsu.html">Lich su</a>
 
-        <!-- Dropdown thể loại - chỉ mở khi click -->
         <div class="dropdown" id="genreDropdown">
             <a href="#" class="dropbtn" id="dropbtnLink" onclick="toggleDropdown(event)">The loai</a>
             <div class="dropdown-content" id="dropdownContent">
@@ -39,19 +59,16 @@
             </div>
         </div>
 
-        <!-- Nút đăng nhập/đăng ký trong menu mobile -->
         <div class="menu-auth-mobile" id="mobileAuthArea">
             <a href="./login.html" class="btn-login-mobile">Dang nhap</a>
             <a href="./login.html?tab=register" class="btn-register-mobile">Dang ky</a>
         </div>
     </nav>
 
-    <!-- Thanh tìm kiếm -->
     <div class="search">
         <input type="text" id="searchInput" placeholder="Tim truyen...">
     </div>
 
-    <!-- Nút chuyển sáng/tối -->
     <div class="theme-toggle">
         <div class="toggle-track" onclick="toggleTheme()" title="Chuyển chế độ sáng/tối">
             <div class="toggle-thumb">
@@ -62,85 +79,128 @@
         <span class="toggle-label" id="themeLabel">Tối</span>
     </div>
 
-    <!-- Nút đăng nhập/đăng ký (desktop) -->
     <div class="account" id="menuAccount">
         <a href="./login.html?tab=register" class="btn-register">Dang ky</a>
         <a href="./login.html" class="btn-login">Dang nhap</a>
     </div>
 </header>
 
-<!-- Banner quảng cáo trang chủ -->
 <section class="banner">
     <img src="./images/z7594163343378_01ab7d770d30e968a7b3f6b70296fba4.jpg" alt="Banner">
 </section>
 
-<!-- Danh sách truyện - được render bởi index.js -->
 <main>
-    <!-- Video noi bat -->
-    <section class="featured-video">
-        <div class="video-section-header">
-            <span class="video-badge">&#9654; Video</span>
-            <h2 class="video-title">Video noi bat</h2>
-        </div>
-        <div class="video-card">
-            <div class="video-wrapper">
-                <iframe
-                    src="https://www.yout-ube.com/embed/bYCk2udVFvo?si=cxqByWjptvAlMF0v"
-                    title="YouTube video player"
-                    frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    referrerpolicy="strict-origin-when-cross-origin"
-                    allowfullscreen>
-                </iframe>
-            </div>
-        </div>
-    </section>
-
-    <!-- Ban do -->
-    <section class="map-section">
-        <div class="map-header">
-            <div class="map-pin-icon"></div>
-            <div class="map-header-text">
-                <div class="map-title">Vi tri cua chung toi</div>
-                <div class="map-subtitle">72 Binh Hung Hoa, Binh Tan, Ho Chi Minh</div>
-            </div>
-        </div>
-        <div class="map-card-new">
-            <div class="map-info-bar">
-                <div class="map-dot"></div>
-                <span class="map-address">72 Binh Hung Hoa, Binh Tan, Ho Chi Minh, Viet Nam</span>
-                <a href="https://maps.google.com/?q=10.811048,106.603477" target="_blank" class="map-open-btn">Mo Maps</a>
-            </div>
-            <div class="map-embed">
-                <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.0034436786127!2d106.60347664476335!3d10.81104751768888!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752b94acaf3cad%3A0x65ed3541d1ba0cf1!2zNzIsIELDrG5oIEjGsG5nIEjDsmEsIELDrG5oIFTDom4sIEjhu5MgQ2jDrSBNaW5oLCBWaeG7h3QgTmFt!5e0!3m2!1svi!2s!4v1773799199530!5m2!1svi!2s"
-                    allowfullscreen=""
-                    loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade">
-                </iframe>
-            </div>
-            <div class="map-footer-bar">
-                <span class="map-coords">10.8110&#176;N, 106.6035&#176;E</span>
-                <div class="map-tags">
-                    <span class="map-tag">Ho Chi Minh</span>
-                    <span class="map-tag">Viet Nam</span>
-                </div>
-            </div>
-        </div>
-    </section>
 
     <h2 class="section-title">Truyen Anime</h2>
     <div class="manga-list" id="mangaGrid"></div>
+
+    <div class="w3-row-padding w3-margin-top w3-margin-bottom" style="padding:0 16px;">
+
+        <div class="w3-half">
+            <div class="w3-card w3-round-large" style="overflow:hidden;">
+                <div class="w3-bar w3-dark-grey w3-padding-small">
+                    <span class="w3-bar-item w3-text-red"><i class="fa fa-youtube-play"></i> <b>Video noi bat</b></span>
+                </div>
+                <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;">
+                    <iframe
+                        src="https://www.yout-ube.com/embed/bYCk2udVFvo?si=cxqByWjptvAlMF0v"
+                        title="YouTube video player"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin"
+                        allowfullscreen
+                        style="position:absolute;top:0;left:0;width:100%;height:100%;">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+
+        <div class="w3-half">
+            <div class="w3-card w3-round-large" style="overflow:hidden;">
+                <div class="w3-bar w3-dark-grey w3-padding-small">
+                    <span class="w3-bar-item w3-text-red"><i class="fa fa-map-marker"></i> <b>Vi tri cua chung toi</b></span>
+                    <a href="https://maps.google.com/?q=10.811048,106.603477" target="_blank"
+                       class="w3-bar-item w3-button w3-right w3-red w3-small w3-round" style="padding:4px 12px;">
+                        <i class="fa fa-external-link"></i> Mo Maps
+                    </a>
+                </div>
+                <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.0034436786127!2d106.60347664476335!3d10.81104751768888!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752b94acaf3cad%3A0x65ed3541d1ba0cf1!2zNzIsIELDrG5oIEjGsG5nIEjDsmEsIELDrG5oIFTDom4sIEjhu5MgQ2jDrSBNaW5oLCBWaeG7h3QgTmFt!5e0!3m2!1svi!2s!4v1773799199530!5m2!1svi!2s"
+                        allowfullscreen=""
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"
+                        style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;">
+                    </iframe>
+                </div>
+                <div class="w3-bar w3-light-grey w3-small w3-padding-small">
+                    <span class="w3-bar-item w3-text-grey"><i class="fa fa-map-marker"></i> 72 Binh Hung Hoa, Binh Tan, TP.HCM</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="w3-container w3-padding-16" id="chatbox-section">
+        <div class="w3-bar w3-dark-grey w3-padding-small w3-round-top-large">
+            <span class="w3-bar-item w3-text-red"><i class="fa fa-comments"></i> <b>Chat truc tuyen</b></span>
+            <span class="w3-bar-item w3-right w3-text-light-grey w3-small" style="line-height:32px;">
+                <i class="fa fa-circle" style="color:#4caf50;font-size:8px;"></i> Online
+            </span>
+        </div>
+        <div id="chatbox-wrap">
+                    </div>
+    </div>
+
+
 </main>
 
-<footer>
-    <p>&#169; 2026 LibraryComic</p>
+<footer class="w3-container w3-dark-grey w3-padding-32">
+    <div class="w3-row-padding">
+        <div class="w3-third w3-margin-bottom">
+            <h3 class="w3-text-red">&#128213; LibraryComic</h3>
+            <p class="w3-text-light-grey">Website doc truyen tranh anime/manga mien phi. Cap nhat chapter moi nhanh nhat.</p>
+            <div class="w3-margin-top">
+                <a href="https://facebook.com" target="_blank" class="w3-button w3-circle w3-red w3-small w3-margin-right"><i class="fa fa-facebook"></i></a>
+                <a href="https://youtube.com" target="_blank" class="w3-button w3-circle w3-red w3-small w3-margin-right"><i class="fa fa-youtube"></i></a>
+                <a href="https://discord.com" target="_blank" class="w3-button w3-circle w3-red w3-small"><i class="fa fa-commenting"></i></a>
+            </div>
+        </div>
+        <div class="w3-third w3-margin-bottom">
+            <h4 class="w3-text-white">&#128279; Lien ket nhanh</h4>
+            <ul style="list-style:none;padding:0;margin:0;">
+                <li class="w3-padding-small"><a href="./index.html" class="w3-text-light-grey" style="text-decoration:none;">&#8250; Trang chu</a></li>
+                <li class="w3-padding-small"><a href="./theodoi.html" class="w3-text-light-grey" style="text-decoration:none;">&#8250; Theo doi</a></li>
+                <li class="w3-padding-small"><a href="./lichsu.html" class="w3-text-light-grey" style="text-decoration:none;">&#8250; Lich su doc</a></li>
+                <li class="w3-padding-small"><a href="./login.html" class="w3-text-light-grey" style="text-decoration:none;">&#8250; Dang nhap</a></li>
+                <li class="w3-padding-small"><a href="./login.html?tab=register" class="w3-text-light-grey" style="text-decoration:none;">&#8250; Dang ky</a></li>
+            </ul>
+        </div>
+        <div class="w3-third w3-margin-bottom">
+            <h4 class="w3-text-white">&#128214; The loai</h4>
+            <div class="w3-margin-bottom">
+                <a href="index.html?genre=action" class="w3-tag w3-red w3-small w3-margin-bottom w3-margin-right">Hanh dong</a>
+                <a href="index.html?genre=isekai" class="w3-tag w3-red w3-small w3-margin-bottom w3-margin-right">Isekai</a>
+                <a href="index.html?genre=romance" class="w3-tag w3-red w3-small w3-margin-bottom w3-margin-right">Romance</a>
+                <a href="index.html?genre=comedy" class="w3-tag w3-red w3-small w3-margin-bottom w3-margin-right">Hai</a>
+                <a href="index.html?genre=adventure" class="w3-tag w3-red w3-small w3-margin-bottom w3-margin-right">Phieu luu</a>
+            </div>
+            <h4 class="w3-text-white">&#128205; Lien he</h4>
+            <p class="w3-text-light-grey w3-small">
+                <i class="fa fa-map-marker"></i> 72 Binh Hung Hoa, Binh Tan, TP.HCM<br>
+                <i class="fa fa-envelope"></i> <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="bcd0d5deceddcec5dfd3d1d5dffcdbd1ddd5d092dfd3d1">[email&#160;protected]</a><br>
+                <i class="fa fa-clock-o"></i> Cap nhat: Hang ngay
+            </p>
+        </div>
+    </div>
+    <div class="w3-border-top w3-border-grey w3-padding-top w3-margin-top w3-center">
+        <p class="w3-text-grey w3-small">&#169; 2026 LibraryComic &nbsp;|&nbsp; Khong luu tru noi dung ban quyen &nbsp;|&nbsp; <a href="#" class="w3-text-grey">Chinh sach</a> &nbsp;|&nbsp; <a href="#" class="w3-text-grey">he</a></p>
+    </div>
 </footer>
 
-<!-- script.js: hàm chung (menu, theme, user, search...) -->
 <script src="./js/script.js"></script>
-<!-- index.js: render danh sách truyện từ localStorage -->
 <script src="./js/index.js"></script>
-<script src="https://uhchat.net/code.php?f=a3d014"></script>
+<script src="./js/chatbox.js"></script>
+<script src="./js/transition.js"></script>
 </body>
 </html>

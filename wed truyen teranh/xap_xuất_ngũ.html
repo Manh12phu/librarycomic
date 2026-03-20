@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Theo doi - Library Comic</title>
-        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<meta charset="UTF-8">
+<title>Chi tiết truyện</title>
+
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="./css/style.css">
+
 </head>
+
 <body>
 <!-- Page Loader -->
 <div id="pageLoader" style="position:fixed;inset:0;background:#0f0f0f;z-index:8998;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;transition:opacity 0.4s ease;">
@@ -36,58 +38,109 @@ setTimeout(_hideLoader, 2500);
 
 
 <header>
+
         <a href="./index.html" class="logo">
         <img src="./images/librarycomic-logo.svg" alt="LibraryComic" height="48" style="display:block;">
     </a>
 
-    <button class="hamburger" id="hamburgerBtn" onclick="toggleMenu()">
-        <span></span><span></span><span></span>
-    </button>
+    <nav class="menu">
 
-    <nav class="menu" id="mainMenu">
-        <a href="./index.html">Trang chu</a>
-        <a href="./theodoi.html" class="active-page">Theo doi</a>
-        <a href="./lichsu.html">Lich su</a>
+        <a href="./index.html">Menu</a>
+        <a href="#">Theo dõi</a>
+        <a href="#">Lịch sử</a>
 
-        <div class="dropdown" id="genreDropdown">
-            <a href="#" class="dropbtn" id="dropbtnLink" onclick="toggleDropdown(event)">The loai</a>
-            <div class="dropdown-content" id="dropdownContent">
-                <a href="index.html?genre=all">Tat ca</a>
-                <a href="index.html?genre=action">Hanh dong</a>
-                <a href="index.html?genre=adventure">Phieu luu</a>
-                <a href="index.html?genre=isekai">Isekai</a>
-                <a href="index.html?genre=romance">Romance</a>
-                <a href="index.html?genre=comedy">Hai</a>
-            </div>
-        </div>
+<div class="dropdown">
 
-        <div class="menu-auth-mobile" id="mobileAuthArea">
-            <a href="./login.html" class="btn-login-mobile">Dang nhap</a>
-            <a href="./login.html?tab=register" class="btn-register-mobile">Dang ky</a>
-        </div>
+<a href="#" class="dropbtn">Thể loại</a>
+
+<div class="dropdown-content">
+
+<a href="#" data-filter="all">Tất cả</a>
+<a href="#" data-filter="action">Hành động</a>
+<a href="#" data-filter="adventure">Phiêu lưu</a>
+<a href="#" data-filter="isekai">Isekai</a>
+<a href="#" data-filter="romance">Romance</a>
+<a href="#" data-filter="comedy">Hài</a>
+
+</div>
+</div>
+
+</div>
     </nav>
 
-    <div class="search">
-        <input type="text" id="searchInput" placeholder="Tim truyen...">
+<div class="search">
+<input type="text" id="searchInput" placeholder="Tìm truyện...">
+</div>
+    
+<div class="theme-toggle">
+
+<button id="lightBtn">💡</button>
+
+</div>
+
+    <div class="account">
+
+        <a href="#">Đăng ký</a>
+        <a href="#">Đăng nhập</a>
+
     </div>
 
-    <div class="theme-toggle">
-        <div class="toggle-track" onclick="toggleTheme()" title="Chuyển chế độ sáng/tối">
-            <div class="toggle-thumb">
-                <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-                <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3" stroke="white" stroke-width="2.5" stroke-linecap="round"/><line x1="12" y1="21" x2="12" y2="23" stroke="white" stroke-width="2.5" stroke-linecap="round"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke="white" stroke-width="2.5" stroke-linecap="round"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke="white" stroke-width="2.5" stroke-linecap="round"/><line x1="1" y1="12" x2="3" y2="12" stroke="white" stroke-width="2.5" stroke-linecap="round"/><line x1="21" y1="12" x2="23" y2="12" stroke="white" stroke-width="2.5" stroke-linecap="round"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="white" stroke-width="2.5" stroke-linecap="round"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="white" stroke-width="2.5" stroke-linecap="round"/></svg>
-            </div>
-        </div>
-        <span class="toggle-label" id="themeLabel">Tối</span>
-    </div>
-
-    <div class="account" id="menuAccount">
-        <a href="./login.html?tab=register" class="btn-register">Dang ky</a>
-        <a href="./login.html" class="btn-login">Dang nhap</a>
-    </div>
 </header>
 
-<div class="page-wrap" id="pageContent"></div>
+<section class="manga-detail">
+
+<img src="./images/poste1.jpg" class="detail-img">
+
+<div class="detail-info">
+
+<h1 class="detail-title">Sắp Xuất Ngũ Thì Isekai</h1>
+
+<p><span>Tác giả:</span> Đang cập nhật</p>
+
+<p><span>Thể loại:</span> 
+<span class="tag">Action</span>
+<span class="tag">Comedy</span>
+<span class="tag">Drama</span>
+<span class="tag">Fantasy</span>
+<span class="tag">Shounen</span>
+<span class="tag">Supernatural</span>
+<span class="tag">Manhwa</span>
+<span class="tag">Webtoon</span>
+</p>
+
+<p><span>Tình trạng:</span> Đang cập nhật</p>
+
+<p class="desc">
+Sau khi xuất ngũ thì bị dịch chuyển sang thế giới khác.
+</p>
+<button class="follow-btn"
+onclick="followManga('Sắp Xuất Ngũ Thì Isekai','./images/poste1.jpg','xap xuất ngũ.html')">
+⭐ Theo dõi
+</button>
+
+</div>
+
+</section>
+
+<section class="chapter-list">
+
+<h2>Danh sách chương</h2>
+
+<div class="chapters">
+
+<a href="./chapter1botruyen1.html" class="chapter-item">
+<span class="chapter-name">Chapter 1: Sự xui xẻo tột độ</span>
+
+</a>
+
+<a href="./chapter1botruyen2.html" class="chapter-item">
+<span class="chapter-name">Chapter 2: sự gặp gở</span>
+
+</a>
+
+</div>
+
+</section>
 
 <footer class="w3-container w3-dark-grey w3-padding-32">
     <div class="w3-row-padding">
@@ -119,21 +172,11 @@ setTimeout(_hideLoader, 2500);
                 <a href="index.html?genre=comedy" class="w3-tag w3-red w3-small w3-margin-bottom w3-margin-right">Hai</a>
                 <a href="index.html?genre=adventure" class="w3-tag w3-red w3-small w3-margin-bottom w3-margin-right">Phieu luu</a>
             </div>
-            <h4 class="w3-text-white">&#128205; Lien he</h4>
-            <p class="w3-text-light-grey w3-small">
-                <i class="fa fa-map-marker"></i> 72 Binh Hung Hoa, Binh Tan, TP.HCM<br>
-                <i class="fa fa-envelope"></i> <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="80ece9e2f2e1f2f9e3efede9e3c0e7ede1e9ecaee3efed">[email&#160;protected]</a><br>
-                <i class="fa fa-clock-o"></i> Cap nhat: Hang ngay
-            </p>
-        </div>
-    </div>
-    <div class="w3-border-top w3-border-grey w3-padding-top w3-margin-top w3-center">
-        <p class="w3-text-grey w3-small">&#169; 2026 LibraryComic &nbsp;|&nbsp; Khong luu tru noi dung ban quyen &nbsp;|&nbsp; <a href="#" class="w3-text-grey">Chinh sach</a> &nbsp;|&nbsp; <a href="#" class="w3-text-grey">he</a></p>
+            <h4 class="w3-text-white">&#128205; he</a></p>
     </div>
 </footer>
 
 <script src="./js/script.js"></script>
-<script src="./js/theodoi.js"></script>
 <script src="./js/chatbox.js"></script>
 <script src="./js/transition.js"></script>
 </body>

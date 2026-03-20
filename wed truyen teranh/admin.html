@@ -4,12 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin - Library Comic</title>
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/admin.css">
 </head>
 <body>
 
-<!-- ===== CỔNG BẢO MẬT ===== -->
 <div id="adminGate">
     <div class="gate-box">
         <h2>Admin Panel</h2>
@@ -21,7 +22,6 @@
     </div>
 </div>
 
-<!-- ===== ADMIN PANEL ===== -->
 <div id="adminPanel">
 
     <div class="admin-header">
@@ -37,7 +37,6 @@
 
     <div class="admin-body">
 
-        <!-- Stats -->
         <div class="stats-bar" id="statsBar">
             <div class="stat-card">
                 <div class="stat-num" id="statTotal">0</div>
@@ -57,7 +56,6 @@
             </div>
         </div>
 
-        <!-- Form thêm/sửa -->
         <div class="section-head">
             <h2 id="formTitle">Them truyen moi</h2>
         </div>
@@ -121,7 +119,6 @@
             </div>
         </div>
 
-        <!-- Danh sách truyện -->
         <div class="section-head">
             <h2>Danh sach truyen (<span id="mangaCount">0</span>)</h2>
         </div>
@@ -142,7 +139,6 @@
     </div>
 </div>
 
-<!-- Toast -->
 <div class="toast" id="toast"></div>
 <script src="./js/admin.js"></script>
 </body>
@@ -212,12 +208,14 @@ function downloadDetailPage(id) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>${m.title} - Library Comic</title>
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/admin.css">
 </head>
 <body>
 <header>
-    <a href="./index.html" class="logo">
+        <a href="./index.html" class="logo">
         <img src="./images/librarycomic-logo.svg" alt="LibraryComic" height="48" style="display:block;">
     </a>
     <button class="hamburger" id="hamburgerBtn" onclick="toggleMenu()"><span></span><span></span><span></span></button>
@@ -256,7 +254,7 @@ function downloadDetailPage(id) {
         <a href="./login.html" class="btn-login">Dang nhap</a>
     </div>
 </header>
-<main style="padding:24px;">
+<main>
     <section class="manga-detail">
         <img src="${m.img}" class="detail-img" alt="${m.title}">
         <div class="detail-info">
@@ -275,8 +273,49 @@ function downloadDetailPage(id) {
         </div>
     </section>
 </main>
-<footer><p>&#169; 2026 LibraryComic</p></footer>
-<script src="./js/script.js"><\/script>
+<footer class="w3-container w3-dark-grey w3-padding-32">
+    <div class="w3-row-padding">
+        <div class="w3-third w3-margin-bottom">
+            <h3 class="w3-text-red">&#128213; LibraryComic</h3>
+            <p class="w3-text-light-grey">Website doc truyen tranh anime/manga mien phi. Cap nhat chapter moi nhanh nhat.</p>
+            <div class="w3-margin-top">
+                <a href="https://facebook.com" target="_blank" class="w3-button w3-circle w3-red w3-small w3-margin-right"><i class="fa fa-facebook"></i></a>
+                <a href="https://youtube.com" target="_blank" class="w3-button w3-circle w3-red w3-small w3-margin-right"><i class="fa fa-youtube"></i></a>
+                <a href="https://discord.com" target="_blank" class="w3-button w3-circle w3-red w3-small"><i class="fa fa-commenting"></i></a>
+            </div>
+        </div>
+        <div class="w3-third w3-margin-bottom">
+            <h4 class="w3-text-white">&#128279; Lien ket nhanh</h4>
+            <ul style="list-style:none;padding:0;margin:0;">
+                <li class="w3-padding-small"><a href="./index.html" class="w3-text-light-grey" style="text-decoration:none;">&#8250; Trang chu</a></li>
+                <li class="w3-padding-small"><a href="./theodoi.html" class="w3-text-light-grey" style="text-decoration:none;">&#8250; Theo doi</a></li>
+                <li class="w3-padding-small"><a href="./lichsu.html" class="w3-text-light-grey" style="text-decoration:none;">&#8250; Lich su doc</a></li>
+                <li class="w3-padding-small"><a href="./login.html" class="w3-text-light-grey" style="text-decoration:none;">&#8250; Dang nhap</a></li>
+                <li class="w3-padding-small"><a href="./login.html?tab=register" class="w3-text-light-grey" style="text-decoration:none;">&#8250; Dang ky</a></li>
+            </ul>
+        </div>
+        <div class="w3-third w3-margin-bottom">
+            <h4 class="w3-text-white">&#128214; The loai</h4>
+            <div class="w3-margin-bottom">
+                <a href="index.html?genre=action" class="w3-tag w3-red w3-small w3-margin-bottom w3-margin-right">Hanh dong</a>
+                <a href="index.html?genre=isekai" class="w3-tag w3-red w3-small w3-margin-bottom w3-margin-right">Isekai</a>
+                <a href="index.html?genre=romance" class="w3-tag w3-red w3-small w3-margin-bottom w3-margin-right">Romance</a>
+                <a href="index.html?genre=comedy" class="w3-tag w3-red w3-small w3-margin-bottom w3-margin-right">Hai</a>
+                <a href="index.html?genre=adventure" class="w3-tag w3-red w3-small w3-margin-bottom w3-margin-right">Phieu luu</a>
+            </div>
+            <h4 class="w3-text-white">&#128205; Lien he</h4>
+            <p class="w3-text-light-grey w3-small">
+                <i class="fa fa-map-marker"></i> 72 Binh Hung Hoa, Binh Tan, TP.HCM<br>
+                <i class="fa fa-envelope"></i> <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b3dfdad1c1d2c1cad0dcdedad0f3d4ded2dadf9dd0dcde">[email&#160;protected]</a><br>
+                <i class="fa fa-clock-o"></i> Cap nhat: Hang ngay
+            </p>
+        </div>
+    </div>
+    <div class="w3-border-top w3-border-grey w3-padding-top w3-margin-top w3-center">
+        <p class="w3-text-grey w3-small">&#169; 2026 LibraryComic &nbsp;|&nbsp; Khong luu tru noi dung ban quyen &nbsp;|&nbsp; <a href="#" class="w3-text-grey">Chinh sach</a> &nbsp;|&nbsp; <a href="#" class="w3-text-grey">Lien he</a></p>
+    </div>
+</footer>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="./js/script.js"><\/script>
 <script src="./js/admin.js"></script>
 </body>
 </html>`;
@@ -287,15 +326,4 @@ function downloadDetailPage(id) {
     const a = document.createElement("a");
     a.href = url; a.download = fname;
     document.body.appendChild(a); a.click();
-    document.body.removeChild(a); URL.revokeObjectURL(url);
-    showToast("Da tai file: " + fname);
-}
-
-// ===== INIT =====
-if (sessionStorage.getItem("adminAuth") === "1") {
-    loadPanel();
-}
-</script>
-<script src="./js/admin.js"></script>
-</body>
-</html>
+    document.body.remove
